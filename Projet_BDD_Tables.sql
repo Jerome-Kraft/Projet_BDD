@@ -69,3 +69,31 @@ create table emprunts(
   constraint fk_emprunteur foreign key (id_emprunteur) references emprunteurs(id_emprunteur),
   constraint fk_livre foreign key (id_livre) references livres(id_livre)
 );
+
+/*
+create table utilisateurs(
+  id_utilisateur int,
+  id_emprunteur int,
+  nom_utilisateur varchar(100),
+  prenom_utilisateur varchar(100),
+  constraint pk_utilisateurs primary key (id_utilisateur),
+  constraint fk_emprunteur foreign key (id_emprunteur) references emprunteurs(id_emprunteur),
+  constraint fk_nom_empr foreign key (nom_utilisateur) references emprunteurs(nom_emprunteur),
+  constraint fk_prenom_empr foreign key (prenom_utilisateur) references emprunteurs(prenom_emprunteur)
+);
+*/
+
+/* Création des utilisateurs (dans la base system) : */
+create user administrateur identified by "administrateur";
+
+/* Attribution des privilèges pour "administrateur" sur toutes les tables de Projet_BDD (dans la base Projet_BDD) : */
+grant all on auteurs to administrateur;
+grant all on domaines to administrateur;
+grant all on edition_livre to administrateur;
+grant all on employees to administrateur;
+grant all on emprunteurs to administrateur;
+grant all on emprunts to administrateur;
+grant all on livres to administrateur;
+grant all on sous_domaines to administrateur;
+
+/* pour la suite : créer un trigger qui attribue automatiquement des privilèges de connexion aux nouveaux utilisateurs créés */

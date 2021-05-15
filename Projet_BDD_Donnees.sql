@@ -28,3 +28,12 @@ insert into livres values (1, 1, 'Bad Boys 3', 5, 1, 0, 1);
 insert into livres values (2, 2, 'Pere riche pere pauvre', 5, 2, 2, 6);
 insert into livres values (3, 3, 'Les quatre accords toltèques', 5, 3, 3, 4);
 insert into livres values (4, 1, 'Bad Boys 3', 2, 1, 0, 1);
+
+insert into emprunteurs values (0, 'MKIBANGU', 'Vital', 0, null);
+insert into emprunteurs values (1, 'KEFI', 'Kalil', 0, null);
+insert into emprunteurs values (2, 'AMALANATHAN', 'Elvis', 0, null);
+insert into emprunteurs values (3, 'KRAFT', 'Jérôme', 0, null);
+insert into emprunteurs values (4, 'KING', 'Steven', 0, 100);
+insert into emprunteurs values (5, 'AUSTIN', 'David', 0, 105);
+insert into emprunteurs values (6, 'PATABALLA', 'Valli', 0, 106);
+insert into emprunteurs values (7, 'POPP', 'Luis', 0, 113);

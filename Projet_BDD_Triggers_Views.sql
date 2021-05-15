@@ -80,9 +80,10 @@ AS SELECT t.*, e.nom_emprunteur, e.prenom_emprunteur
 FROM emprunteurs e, emprunts t
 WHERE date_retour < SYSDATE AND t.id_emprunteur = e.id_emprunteur;
 
-/* Autre possibilité :*/
+/* Autre possibilité :
 CREATE OR REPLACE VIEW retard_emprunt AS SELECT * FROM emprunts
 WHERE date_retour < SYSDATE ;
+*/
 
 /* Vues : détail des livres par catégorie, édition, auteur et nombre d'exemplaires */
 CREATE OR REPLACE VIEW detail_categories
