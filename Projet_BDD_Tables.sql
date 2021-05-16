@@ -96,4 +96,15 @@ grant all on emprunts to administrateur;
 grant all on livres to administrateur;
 grant all on sous_domaines to administrateur;
 
-/* pour la suite : créer un trigger qui attribue automatiquement des privilèges de connexion aux nouveaux utilisateurs créés */
+/* pour la suite : créer un trigger qui attribue automatiquement des privilèges de connexion aux nouveaux utilisateurs créés
+ - privilèges sur les objets (tables) :
+      - select 
+CREATE OR REPLACE TRIGGER donner_privilèges_nveaux _utilisateurs
+AFTER INSERT ON emprunteurs
+
+BEGIN
+
+
+END;
+/
+*/

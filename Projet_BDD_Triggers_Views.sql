@@ -45,6 +45,9 @@ BEGIN
     IF deja_emprunte = exemplaire THEN
     RAISE_APPLICATION_ERROR(-20001,'Livre déjà emprunté par cet emprunteur !');
     END IF;
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+    deja_emprunte := NULL;
 END;
 /
 
