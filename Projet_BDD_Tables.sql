@@ -109,6 +109,10 @@ grant select on consultation to invite;
 grant select on consultation to enregistre;
 grant update on emprunteurs, emprunts to enregistre;
 
+/* Autorise les utilisateurs "oracle_enregistre" (employés Oracle avec compte) à consulter la base, à s'enregistrer 
+(altérer la table "emprunteurs") et à emprunter (altérer la table "emprunts") */
+grant select on consultation_oracle_enregistre to oracle_enregistre;
+grant update on emprunteurs, emprunts to oracle_enregistre;
 
 
 /* pour la suite : créer un trigger qui attribue automatiquement des privilèges de connexion aux nouveaux utilisateurs créés

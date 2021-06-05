@@ -33,26 +33,22 @@ BEFORE INSERT ON emprunts
 FOR EACH ROW
 
 DECLARE
-exemplaire livres.id_livre%type;
-emprunteur_livre emprunts.id_emprunteur%type;
 deja_emprunte emprunts.id_livre%type;
+nb int;
 
 BEGIN
-    SELECT t.id_livre INTO deja_emprunte
-    FROM emprunteurs e, emprunts t
-    WHERE e.id_emprunteur = emprunteur_livre;
-
-    IF deja_emprunte = exemplaire THEN
-    RAISE_APPLICATION_ERROR(-20001,'Livre déjà emprunté par cet emprunteur !');
+    SELECT count(id_emprunteur) INTO nb FROM emprunts WHERE id_emprunteur = :new.id_emprunteur;
+    IF (nb > 0) THEN
+        SELECT e.id_livre INTO deja_emprunte FROM emprunts e, emprunteurs t WHERE e.id_emprunteur = t.id_emprunteur;
+        IF (:new.id_livre = deja_emprunte) THEN
+            RAISE_APPLICATION_ERROR(-20001,'Livre déjà emprunté.');
+        END IF;
     END IF;
-EXCEPTION
-    WHEN NO_DATA_FOUND THEN
-    deja_emprunte := NULL;
+
 END;
-/
 
 /* Empêcher emprunt livres domaine Spiritualité par employés Oracle */
-create or replace TRIGGER "HR"."INTERDICTION_EMPRUNT_SPIRITUALITE" 
+create or replace TRIGGER interdiction_emprunt_spiritualite
 BEFORE INSERT 
     ON emprunts
     FOR EACH ROW
@@ -62,9 +58,9 @@ domaine1 domaines.id_domaine%type;
 employe emprunteurs.id_employe%type;
 
 BEGIN
-    select ID_DOMAINE into domaine1 FROM livres where id_livre = :new.id_livre;
-    select id_employe into employe FROM emprunteurs where :new.id_emprunteur = id_emprunteur;
-    IF domaine1 = 3 and employe is not null THEN 
+    SELECT ID_DOMAINE INTO domaine1 FROM livres WHERE id_livre = :new.id_livre;
+    SELECT id_employe INTO employe FROM emprunteurs WHERE :new.id_emprunteur = id_emprunteur;
+    IF domaine1 = 3 AND employe IS NOT NULL THEN 
     raise_application_error(-20001, 'Les employés de la société Oracle ne peuvent pas emprunter de livres traitant de spiritualité', True);
     END IF;
 END;
@@ -97,11 +93,20 @@ FROM livres l, edition_livre el, sous_domaines sd, domaines d
 WHERE l.isbn = el.isbn AND sd.id_sous_domaine = l.id_sous_domaine AND d.id_domaine = l.id_domaine
 ORDER BY l.id_livre;
 
-/* Créer une vue pour les user "invite" qui ne fait que l'affichage des noms et prénoms de l'auteur, le titre,
-le nombre d'exemplair, l'année de publication, l'éditeur et nom du domaine et sous-domaine */
+/* Créer une vue pour les employés Oracale qui affiche l'auteur (nom et prénom), le titre du livre, le nombre d'exemplaires,
+ l'année de publication, l'éditeur et nom du domaine et sous-domaine */
 CREATE view consultation 
 AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, l.nombre_exemplaire, ed.annee_publication, ed.editeur,
 d.nom_domaine, sd.nom_sous_domaine
 FROM auteurs a, livres l, edition_livre ed, domaines d, sous_domaines sd
 WHERE l.id_auteur = a.id_auteur AND l.isbn = ed.isbn AND l.id_domaine = d.id_domaine AND l.id_sous_domaine = sd.id_sous_domaine;
+
+/* Créer une vue pour les employés Oracale qui affiche l'auteur (nom et prénom), le titre du livre, le nombre d'exemplaires,
+ l'année de publication, l'éditeur et nom du domaine et sous-domaine, mais n'affiche pas les ouvrages du domaine 3 */
+CREATE view consultation_oracle_enregistre 
+AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, l.nombre_exemplaire, ed.annee_publication, ed.editeur,
+d.nom_domaine, sd.nom_sous_domaine
+FROM auteurs a, livres l, edition_livre ed, domaines d, sous_domaines sd
+WHERE l.id_auteur = a.id_auteur AND l.isbn = ed.isbn AND l.id_domaine = d.id_domaine AND l.id_sous_domaine = sd.id_sous_domaine
+AND l.id_domaine != 3;
 
