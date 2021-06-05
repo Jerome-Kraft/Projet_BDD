@@ -52,20 +52,22 @@ END;
 /
 
 /* Empêcher emprunt livres domaine Spiritualité par employés Oracle */
-CREATE OR REPLACE TRIGGER  interdiction_emprunt_spiritualite
-BEFORE INSERT ON emprunts
+create or replace TRIGGER "HR"."INTERDICTION_EMPRUNT_SPIRITUALITE" 
+BEFORE INSERT 
+    ON emprunts
+    FOR EACH ROW
 
 DECLARE
 domaine1 domaines.id_domaine%type;
-employe employees.employee_id%type;
+employe emprunteurs.id_employe%type;
 
 BEGIN
-    IF domaine1 = 3 AND employe IS NOT NULL THEN
-    dbms_output.put_line('Les employés de la société Oracle ne peuvent pas emprunter
-      de livres traitant de spiritualité');
+    select ID_DOMAINE into domaine1 FROM livres where id_livre = :new.id_livre;
+    select id_employe into employe FROM emprunteurs where :new.id_emprunteur = id_emprunteur;
+    IF domaine1 = 3 and employe is not null THEN 
+    raise_application_error(-20001, 'Les employés de la société Oracle ne peuvent pas emprunter de livres traitant de spiritualité', True);
     END IF;
 END;
-/
 
 /* Vues : liste de tous les emprunts en cours (données essentielles de chaque livre,
 données essentielles de chaque emprunteur, date d'emprunt, date de retour prévue) */
