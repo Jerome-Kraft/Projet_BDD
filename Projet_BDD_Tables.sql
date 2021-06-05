@@ -37,6 +37,8 @@ create table edition_livre(
 create table livres(
   id_livre int,
   id_auteur int,
+  id_auteur2 int,
+  id_auteur3 int,
   titre varchar(100),
   nombre_exemplaire int,
   isbn int,
