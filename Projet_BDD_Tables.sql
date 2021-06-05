@@ -87,6 +87,7 @@ create table utilisateurs(
 
 /* Création des utilisateurs (dans la base system) : */
 create user administrateur identified by "administrateur";
+create user invite;
 
 /* Attribution des privilèges pour "administrateur" sur toutes les tables de Projet_BDD (dans la base Projet_BDD) : */
 grant all on auteurs to administrateur;
@@ -97,6 +98,9 @@ grant all on emprunteurs to administrateur;
 grant all on emprunts to administrateur;
 grant all on livres to administrateur;
 grant all on sous_domaines to administrateur;
+
+/* Autorise les utilisateurs "invite" (sans compte) à uniquement consulter la base */
+grant select on consultation_invite to invite;
 
 /* pour la suite : créer un trigger qui attribue automatiquement des privilèges de connexion aux nouveaux utilisateurs créés
  - privilèges sur les objets (tables) :
