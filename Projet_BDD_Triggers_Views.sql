@@ -102,6 +102,6 @@ le nombre d'exemplair, l'année de publication, l'éditeur et nom du domaine et 
 CREATE view consultation 
 AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, l.nombre_exemplaire, ed.annee_publication, ed.editeur,
 d.nom_domaine, sd.nom_sous_domaine
-FROM auteurs a, livres l, edition_livre ed,d domaines d, sous_domaines sd
+FROM auteurs a, livres l, edition_livre ed, domaines d, sous_domaines sd
 WHERE l.id_auteur = a.id_auteur AND l.isbn = ed.isbn AND l.id_domaine = d.id_domaine AND l.id_sous_domaine = sd.id_sous_domaine;
 
