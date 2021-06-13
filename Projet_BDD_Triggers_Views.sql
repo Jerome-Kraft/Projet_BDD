@@ -14,7 +14,7 @@ BEGIN
 END;
 /
 
-/* => VERIFIE */  /* Limiter le délai d'emprunt à 1 mois pour 1 livre */
+/* => VERIFIE et INUTILE */  /* Limiter le délai d'emprunt à 1 mois pour 1 livre
 CREATE OR REPLACE TRIGGER limite_delai_emprunt
 AFTER INSERT ON emprunts
 
@@ -26,6 +26,7 @@ BEGIN
     date2 := date1 + 30;
 END;
 /
+*/
 
 /* => VERIFIE */   /* Empêcher l'emprunt de plus d'1 exemplaire d'un même livre par un même emprunteur */
 CREATE OR REPLACE TRIGGER limite_emprunt_exemplaire_livre
@@ -93,7 +94,7 @@ FROM livres l, auteurs a, edition_livre el, sous_domaines sd, domaines d
 WHERE l.isbn = el.isbn AND sd.id_sous_domaine = l.id_sous_domaine AND d.id_domaine = l.id_domaine AND l.id_auteur = a.id_auteur
 ORDER BY l.id_livre;
 
-/* Créer une vue pour les employés Oracale qui affiche l'auteur (nom et prénom), le titre du livre, le nombre d'exemplaires,
+/* Créer une vue pour les employés Oracle qui affiche l'auteur (nom et prénom), le titre du livre, le nombre d'exemplaires,
  l'année de publication, l'éditeur et nom du domaine et sous-domaine */
 CREATE VIEW consultation 
 AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, l.nombre_exemplaire, ed.annee_publication, ed.editeur,
