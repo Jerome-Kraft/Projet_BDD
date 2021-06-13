@@ -14,6 +14,16 @@ BEGIN
 END;
 /
 
+/* => VERIFIE */  /* Rafraichit le nombre d'emprunts d'un emprunteur */
+CREATE OR REPLACE trigger refresh_emprunt 
+BEFORE INSERT
+    ON emprunts
+    FOR EACH ROW
+
+BEGIN
+    UPDATE emprunteurs SET nombre_emprunt = nombre_emprunt+1 WHERE :new.id_emprunteur = emprunteurs.id_emprunteur;  
+END;
+
 /* => VERIFIE et INUTILE */  /* Limiter le délai d'emprunt à 1 mois pour 1 livre
 CREATE OR REPLACE TRIGGER limite_delai_emprunt
 AFTER INSERT ON emprunts
