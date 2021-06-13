@@ -37,7 +37,7 @@ deja_emprunte emprunts.id_livre%type;
 nb int;
 
 BEGIN
-    SELECT count(id_emprunteur) INTO nb FROM emprunts WHERE id_emprunteur = :new.id_emprunteur;
+    SELECT COUNT(id_emprunteur) INTO nb FROM emprunts WHERE id_emprunteur = :new.id_emprunteur;
     IF (nb > 0) THEN
         SELECT e.id_livre INTO deja_emprunte FROM emprunts e, emprunteurs t WHERE e.id_emprunteur = t.id_emprunteur;
         IF (:new.id_livre = deja_emprunte) THEN
@@ -48,7 +48,7 @@ BEGIN
 END;
 
 /* => VERIFIE */   /* Empêcher emprunt livres domaine Spiritualité par employés Oracle */
-create or replace TRIGGER interdiction_emprunt_spiritualite
+CREATE OR REPLACE TRIGGER interdiction_emprunt_spiritualite
 BEFORE INSERT 
     ON emprunts
     FOR EACH ROW
@@ -103,7 +103,7 @@ WHERE l.id_auteur = a.id_auteur AND l.isbn = ed.isbn AND l.id_domaine = d.id_dom
 
 ALTER VIEW consultation COMPILE;
 
-/* Créer une vue pour les employés Oracale qui affiche l'auteur (nom et prénom), le titre du livre, le nombre d'exemplaires,
+/* Créer une vue pour les employés Oracle qui affiche l'auteur (nom et prénom), le titre du livre, le nombre d'exemplaires,
  l'année de publication, l'éditeur et nom du domaine et sous-domaine, mais n'affiche pas les ouvrages du domaine 3 */
 CREATE VIEW consultation_oracle_enregistre 
 AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, l.nombre_exemplaire, ed.annee_publication, ed.editeur,
