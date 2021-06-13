@@ -1,5 +1,5 @@
 /* Limiter le nombre de livres empruntés à 3 pour chaque employé Oracle
-+ Employés Oracle comme emprunteurs : */
++ Employés Oracle comme emprunteurs : */  
 CREATE OR REPLACE TRIGGER limite_emprunt_employe
 BEFORE INSERT ON emprunteurs
 
@@ -14,7 +14,7 @@ BEGIN
 END;
 /
 
-/* Limiter le délai d'emprunt à 1 mois pour 1 livre */
+/* => VERIFIE */  /* Limiter le délai d'emprunt à 1 mois pour 1 livre */
 CREATE OR REPLACE TRIGGER limite_delai_emprunt
 AFTER INSERT ON emprunts
 
@@ -27,7 +27,7 @@ BEGIN
 END;
 /
 
-/* Empêcher l'emprunt de plus d'1 exemplaire d'un même livre par un même emprunteur */
+/* => VERIFIE */   /* Empêcher l'emprunt de plus d'1 exemplaire d'un même livre par un même emprunteur */
 CREATE OR REPLACE TRIGGER limite_emprunt_exemplaire_livre
 BEFORE INSERT ON emprunts
 FOR EACH ROW
@@ -47,7 +47,7 @@ BEGIN
 
 END;
 
-/* Empêcher emprunt livres domaine Spiritualité par employés Oracle */
+/* => VERIFIE */   /* Empêcher emprunt livres domaine Spiritualité par employés Oracle */
 create or replace TRIGGER interdiction_emprunt_spiritualite
 BEFORE INSERT 
     ON emprunts
