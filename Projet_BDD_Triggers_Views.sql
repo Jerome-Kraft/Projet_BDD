@@ -34,18 +34,18 @@ BEFORE INSERT ON emprunts
 FOR EACH ROW
 
 DECLARE
-deja_emprunte emprunts.id_livre%type;
-nb int;
+nbre_livres int;
 
 BEGIN
-    SELECT COUNT(id_emprunteur) INTO nb FROM emprunts WHERE id_emprunteur = :new.id_emprunteur;
-    IF (nb > 0) THEN
-        SELECT e.id_livre INTO deja_emprunte FROM emprunts e, emprunteurs t WHERE e.id_emprunteur = t.id_emprunteur;
-        IF (:new.id_livre = deja_emprunte) THEN
+    SELECT COUNT (*) INTO nbre_livres
+    FROM
+        (SELECT id_livre FROM EMPRUNTS WHERE id_emprunteur = :new.id_emprunteur
+        INTERSECT
+        SELECT id_livre FROM EMPRUNTS WHERE ID_Livre = :new.ID_Livre);
+        
+    IF (nbre_livres != 0) THEN
             RAISE_APPLICATION_ERROR(-20001,'Livre déjà emprunté.');
-        END IF;
     END IF;
-
 END;
 
 /* => VERIFIE */   /* Empêcher emprunt livres domaine Spiritualité par employés Oracle */
