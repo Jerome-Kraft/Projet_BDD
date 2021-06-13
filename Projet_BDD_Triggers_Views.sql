@@ -88,9 +88,9 @@ WHERE date_retour < SYSDATE ;
 
 /* Vues : détail des livres par catégorie, édition, auteur et nombre d'exemplaires */
 CREATE OR REPLACE VIEW detail_categories
-AS SELECT el.editeur, l.*, sd.nom_sous_domaine, d.nom_domaine
-FROM livres l, edition_livre el, sous_domaines sd, domaines d
-WHERE l.isbn = el.isbn AND sd.id_sous_domaine = l.id_sous_domaine AND d.id_domaine = l.id_domaine
+AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, l.nombre_exemplaire, l.isbn, el.editeur, sd.nom_sous_domaine, d.nom_domaine
+FROM livres l, auteurs a, edition_livre el, sous_domaines sd, domaines d
+WHERE l.isbn = el.isbn AND sd.id_sous_domaine = l.id_sous_domaine AND d.id_domaine = l.id_domaine AND l.id_auteur = a.id_auteur
 ORDER BY l.id_livre;
 
 /* Créer une vue pour les employés Oracale qui affiche l'auteur (nom et prénom), le titre du livre, le nombre d'exemplaires,
