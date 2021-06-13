@@ -1,15 +1,22 @@
 /* Limiter le nombre de livres empruntés à 3 pour chaque employé Oracle
 + Employés Oracle comme emprunteurs : */  
 CREATE OR REPLACE TRIGGER limite_emprunt_employe
-BEFORE INSERT ON emprunteurs
+BEFORE INSERT 
+    ON emprunts
+    FOR EACH ROW
 
 DECLARE
-employe employees.employee_id%type;
-nbre emprunteurs.nombre_emprunt%type;
+employe emprunteurs.id_employe%type;
+nbre int;
 
 BEGIN
-    IF employe is not null and nbre = 3 THEN
-    dbms_output.put_line('Cet emprunteur a déjà emprunté le maximum douvrages possible !');
+
+    SELECT id_employe INTO employe FROM emprunteurs e WHERE :new.id_emprunteur = e.id_emprunteur;
+    
+    SELECT nombre_emprunt into nbre from emprunteurs e WHERE :new.id_emprunteur = e.id_emprunteur;
+
+    IF employe is not null and nbre >= 3 THEN
+    raise_application_error(-20007, 'Les employés de la société Oracle ne peuvent pas emprunter plus de 3 livres', True);
     END IF;
 END;
 /
