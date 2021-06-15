@@ -18,7 +18,7 @@ BEGIN
 END;
 
 /* => VERIFIE */  /* Rafraichit le nombre d'emprunts d'un emprunteur */
-CREATE OR REPLACE trigger refresh_emprunt
+CREATE OR REPLACE trigger refresh_emprunt_add
 BEFORE INSERT
     ON emprunts
     FOR EACH ROW
@@ -65,18 +65,28 @@ BEGIN
     END IF;
 END;
 
-/* => VERIFIE et INUTILE */  /* Limiter le délai d'emprunt à 1 mois pour 1 livre
-CREATE OR REPLACE TRIGGER limite_delai_emprunt
-AFTER INSERT ON emprunts
+/* => VERIFIE */       /*Limiter le délai d'emprunt à 1 mois pour 1 livre */
+create or replace TRIGGER limite_delai_emprunt
+BEFORE INSERT ON emprunts
+FOR EACH ROW
 
 DECLARE
-date1 emprunts.date_emprunt%type;
-date2 emprunts.date_retour%type;
+
+date_lmt emprunts.date_retour%type;
 
 BEGIN
-    date2 := date1 + 30;
+                
+    for c in (select DATE_RETOUR into date_lmt from Emprunts where :new.ID_EMPRUNTEUR = emprunts.id_emprunteur)
+    
+    loop
+
+    IF c.date_retour <= sysdate  THEN
+        RAISE_APPLICATION_ERROR(-20003,'Emprunt impossible car délai de retour dépassé sur certain emprunt en cours.');
+    END IF;
+
+    end loop;
+
 END;
-*/
 
 /* Vues : liste de tous les emprunts en cours (données essentielles de chaque livre,
 données essentielles de chaque emprunteur, date d'emprunt, date de retour prévue) */
