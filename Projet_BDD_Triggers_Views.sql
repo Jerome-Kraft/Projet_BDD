@@ -1,9 +1,9 @@
-/* => VERIFIE */  /* Limiter le nombre de livres empruntés à 3 pour chaque employé Oracle
-+ Employés Oracle comme emprunteurs : */
+/* Eléments vérifiés, testés, retestés, rererereretestés */  
+
+/* Limiter le nombre de livres empruntés à 3 pour chaque employé Oracle + Employés Oracle comme emprunteurs : */
 CREATE OR REPLACE TRIGGER limite_emprunt_employe
-BEFORE INSERT
-    ON emprunts
-    FOR EACH ROW
+BEFORE INSERT ON emprunts
+FOR EACH ROW
 
 DECLARE
 employe emprunteurs.id_employe%type;
@@ -12,22 +12,21 @@ nbre int;
 BEGIN
     SELECT id_employe INTO employe FROM emprunteurs e WHERE :new.id_emprunteur = e.id_emprunteur;
     SELECT nombre_emprunt INTO nbre FROM emprunteurs e WHERE :new.id_emprunteur = e.id_emprunteur;
-    IF employe IS NOT NULL AND nbre >= 3 THEN
-      raise_application_error(-20007, 'Les employés de la société Oracle ne peuvent pas emprunter plus de 3 livres', True);
+    IF employe IS NOT NULL AND nbre > 3 THEN
+      raise_application_error(-20007, 'Les employés de la société Oracle ne peuvent pas emprunter plus de 3 livres.', True);
     END IF;
 END;
 
-/* => VERIFIE */  /* Rafraichit le nombre d'emprunts d'un emprunteur */
-CREATE OR REPLACE trigger refresh_emprunt_add
-BEFORE INSERT
-    ON emprunts
-    FOR EACH ROW
+/* Rafraichit le nombre d'emprunts d'un emprunteur */
+CREATE OR REPLACE TRIGGER refresh_emprunt_add
+BEFORE INSERT ON emprunts
+FOR EACH ROW
 
 BEGIN
     UPDATE emprunteurs SET nombre_emprunt = nombre_emprunt+1 WHERE :new.id_emprunteur = emprunteurs.id_emprunteur;
 END;
 
-/* => VERIFIE */   /* Empêcher l'emprunt de plus d'1 exemplaire d'un même livre par un même emprunteur */
+/* Empêcher l'emprunt de plus d'1 exemplaire d'un même livre par un même emprunteur */
 CREATE OR REPLACE TRIGGER limite_emprunt_exemplaire_livre
 BEFORE INSERT ON emprunts
 FOR EACH ROW
@@ -38,65 +37,50 @@ nbre_livres int;
 BEGIN
     SELECT COUNT (*) INTO nbre_livres
     FROM
-        (SELECT id_livre FROM EMPRUNTS WHERE id_emprunteur = :new.id_emprunteur
+        (SELECT id_livre FROM emprunts WHERE id_emprunteur = :new.id_emprunteur
         INTERSECT
-        SELECT id_livre FROM EMPRUNTS WHERE ID_Livre = :new.ID_Livre);
+        SELECT id_livre FROM emprunts WHERE ID_Livre = :new.ID_Livre);
 
     IF (nbre_livres != 0) THEN
-            RAISE_APPLICATION_ERROR(-20001,'Livre déjà emprunté.');
+            raise_application_error(-20001,'Livre déjà emprunté.');
     END IF;
 END;
 
-/* => VERIFIE */   /* Empêcher emprunt livres domaine Spiritualité par employés Oracle */
+/* Empêcher emprunt livres domaine Spiritualité par employés Oracle */
 CREATE OR REPLACE TRIGGER interdiction_emprunt_spiritualite
-BEFORE INSERT
-    ON emprunts
-    FOR EACH ROW
+BEFORE INSERT ON emprunts
+FOR EACH ROW
 
 DECLARE
 domaine1 domaines.id_domaine%type;
 employe emprunteurs.id_employe%type;
 
 BEGIN
-    SELECT ID_DOMAINE INTO domaine1 FROM livres WHERE id_livre = :new.id_livre;
+    SELECT id_domaine INTO domaine1 FROM livres WHERE id_livre = :new.id_livre;
     SELECT id_employe INTO employe FROM emprunteurs WHERE :new.id_emprunteur = id_emprunteur;
     IF domaine1 = 3 AND employe IS NOT NULL THEN
-      raise_application_error(-20001, 'Les employés de la société Oracle ne peuvent pas emprunter de livres traitant de spiritualité', True);
+      raise_application_error(-20001, 'Les employés de la société Oracle ne peuvent pas emprunter de livres traitant de spiritualité.', True);
     END IF;
 END;
 
-/* => VERIFIE */       /*Limiter le délai d'emprunt à 1 mois pour 1 livre */
-create or replace TRIGGER limite_delai_emprunt
+/* Limiter le délai d'emprunt à 1 mois pour un livre */
+CREATE OR REPLACE TRIGGER limite_delai_emprunt
 BEFORE INSERT ON emprunts
 FOR EACH ROW
 
 DECLARE
-
 date_lmt emprunts.date_retour%type;
 
-BEGIN
-                
-    for c in (select DATE_RETOUR into date_lmt from Emprunts where :new.ID_EMPRUNTEUR = emprunts.id_emprunteur)
+BEGIN         
+    FOR c IN (SELECT date_retour INTO date_lmt FROM emprunts WHERE :new.id_emprunteur = emprunts.id_emprunteur)
     
-    loop
-
+    LOOP
     IF c.date_retour <= sysdate  THEN
-        RAISE_APPLICATION_ERROR(-20003,'Emprunt impossible car délai de retour dépassé sur certain emprunt en cours.');
+        RAISE_APPLICATION_ERROR(-20003,'Emprunt impossible car le délai de retour est dépassé pour un emprunt en cours.');
     END IF;
-
-    end loop;
+    END LOOP;
 
 END;
-
-/* Vues : liste de tous les emprunts en cours (données essentielles de chaque livre,
-données essentielles de chaque emprunteur, date d'emprunt, date de retour prévue) */
-CREATE OR REPLACE VIEW liste_emprunts_en_cours
-AS SELECT l.id_livre, l.id_auteur, l.titre, a.nom_auteur, a.prenom_auteur, el.isbn, el.annee_publication,
-l.id_sous_domaine, l.id_domaine, e.id_emprunteur, e.nom_emprunteur, e.prenom_emprunteur, t.id_emprunt,
-t.date_emprunt, t.date_retour
-FROM livres l, auteurs a, edition_livre el, emprunteurs e, emprunts t
-WHERE t.date_retour > SYSDATE AND l.id_livre = t.id_livre AND l.id_auteur = a.id_auteur AND l.isbn = el.isbn
-AND t.id_emprunteur = e.id_emprunteur ;
 
 /* Vues : emprunts en retard */
 CREATE OR REPLACE VIEW retard_emprunt
@@ -105,16 +89,19 @@ FROM emprunteurs e, emprunts t
 WHERE date_retour < SYSDATE AND t.id_emprunteur = e.id_emprunteur;
 
 /* Autre possibilité :
-CREATE OR REPLACE VIEW retard_emprunt AS SELECT * FROM emprunts
+CREATE OR REPLACE VIEW retard_emprunt 
+AS SELECT * FROM emprunts
 WHERE date_retour < SYSDATE ;
 */
 
-/* Vues : détail des livres par catégorie, édition, auteur et nombre d'exemplaires */
-CREATE OR REPLACE VIEW detail_categories
-AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, l.nombre_exemplaire, l.isbn, el.editeur, sd.nom_sous_domaine, d.nom_domaine
-FROM livres l, auteurs a, edition_livre el, sous_domaines sd, domaines d
-WHERE l.isbn = el.isbn AND sd.id_sous_domaine = l.id_sous_domaine AND d.id_domaine = l.id_domaine AND l.id_auteur = a.id_auteur
-ORDER BY l.id_livre;
+/* Vues : liste de tous les emprunts en cours (données essentielles de chaque livre,
+données essentielles de chaque emprunteur, date d'emprunt, date de retour prévue) */
+CREATE OR REPLACE VIEW liste_emprunts_en_cours
+AS SELECT e.id_emprunteur, e.nom_emprunteur, e.prenom_emprunteur, t.id_emprunt, t.date_emprunt, t.date_retour, l.titre, a.nom_auteur, 
+a.prenom_auteur, el.annee_publication, l.id_sous_domaine, l.id_domaine
+FROM livres l, auteurs a, edition_livre el, emprunteurs e, emprunts t
+WHERE t.date_retour > sysdate AND l.id_livre = t.id_livre AND l.id_auteur = a.id_auteur AND l.isbn = el.isbn
+AND t.id_emprunteur = e.id_emprunteur ;
 
 /* Vue (pour les utilisateurs invités ou enregistrés) qui affiche l'auteur (nom et prénom), le titre du livre, le nombre d'exemplaires,
  l'année de publication, l'éditeur et nom du domaine et sous-domaine */
@@ -136,3 +123,15 @@ WHERE l.id_auteur = a.id_auteur AND l.isbn = ed.isbn AND l.id_domaine = d.id_dom
 AND l.id_domaine != 3;
 
 ALTER VIEW consultation_oracle_enregistre COMPILE;
+
+
+
+/************************************ Eléments à verifier ********************************************/
+
+/* Vues : détail des livres par catégorie, édition, auteur et nombre d'exemplaires */
+CREATE OR REPLACE VIEW detail_categories
+AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, l.nombre_exemplaire, l.isbn, el.editeur, sd.nom_sous_domaine, d.nom_domaine
+FROM livres l, auteurs a, edition_livre el, sous_domaines sd, domaines d
+WHERE l.isbn = el.isbn AND sd.id_sous_domaine = l.id_sous_domaine AND d.id_domaine = l.id_domaine AND l.id_auteur = a.id_auteur
+ORDER BY l.id_livre;
+
