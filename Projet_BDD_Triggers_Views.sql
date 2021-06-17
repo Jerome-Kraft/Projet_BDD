@@ -103,6 +103,14 @@ FROM livres l, auteurs a, edition_livre el, emprunteurs e, emprunts t
 WHERE t.date_retour > sysdate AND l.id_livre = t.id_livre AND l.id_auteur = a.id_auteur AND l.isbn = el.isbn
 AND t.id_emprunteur = e.id_emprunteur ;
 
+/* Vue (pour l'administrateur') qui affiche les emprunts en cours*/
+CREATE VIEW emprunt_en_cours
+AS SELECT e.id_emprunt, e.date_emprunt, e.id_emprunteur, e.ISBN, e.Num_exemplaire
+FROM emprunts e
+WHERE  e.date_retour is null;
+
+ALTER VIEW emprunt_en_cours COMPILE;
+
 /* Vue (pour les utilisateurs invités ou enregistrés) qui affiche l'auteur (nom et prénom), le titre du livre, le nombre d'exemplaires,
  l'année de publication, l'éditeur et nom du domaine et sous-domaine */
 CREATE VIEW consultation
@@ -124,7 +132,21 @@ AND l.id_domaine != 3;
 
 ALTER VIEW consultation_oracle_enregistre COMPILE;
 
+/* Vue (pour l'administrateur') qui affiche l'historique d'emprunt  passé pour un où plusieurs emprunteur*/
+CREATE VIEW historique_emprunt_passé
+AS SELECT e.id_emprunt, e.date_emprunt, e.date_retour, e.id_emprunteur, e.ISBN, e.Num_exemplaire
+FROM emprunts e
+WHERE  e.date_retour is not null;
 
+ALTER VIEW historique_emprunt_passé COMPILE;
+
+/* Vue (pour l'administrateur') qui affiche l'historique d'emprunt  passé pour un où plusieurs emprunteur*/
+CREATE VIEW emprunt_delais_passe
+AS SELECT e.id_emprunt, e.date_emprunt, e.id_emprunteur, e.ISBN, e.Num_exemplaire
+FROM emprunts e
+Where  e.date_retour is null and (sysdate > e.date_emprunt+30);
+
+ALTER VIEW emprunt_delais_passe COMPILE;
 
 /************************************ Eléments à verifier ********************************************/
 
@@ -134,4 +156,5 @@ AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, l.nombre_exemplaire, l.isbn, e
 FROM livres l, auteurs a, edition_livre el, sous_domaines sd, domaines d
 WHERE l.isbn = el.isbn AND sd.id_sous_domaine = l.id_sous_domaine AND d.id_domaine = l.id_domaine AND l.id_auteur = a.id_auteur
 ORDER BY l.id_livre;
+
 
