@@ -58,12 +58,12 @@ create table exemplaires_livres(
 );
 
 create table emprunteurs(
-    id_emprunteur int,
-    nom_emprunteur varchar(100),
-    prenom_emprunteur varchar(100),
-    id_employe int,
-    constraint pk_emprunteurs primary key (id_emprunteur),
-    constraint fk_employee foreign key (id_employe) references employees(employee_id)
+  id_emprunteur int,
+  nom_emprunteur varchar(100),
+  prenom_emprunteur varchar(100),
+  id_employe int,
+  constraint pk_emprunteurs primary key (id_emprunteur),
+  constraint fk_employee foreign key (id_employe) references employees(employee_id)
 );
 
 create table emprunts(
