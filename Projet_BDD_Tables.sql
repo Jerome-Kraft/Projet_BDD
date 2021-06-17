@@ -1,8 +1,9 @@
 drop table if exists domaines;
 drop table if exists sous_domaines;
 drop table if exists auteurs;
-drop table if exists edition_livre;
+drop table if exists editeurs;
 drop table if exists livres;
+drop table if exists exemplaires_livre;
 drop table if exists emprunteurs;
 drop table if exists emprunts;
 
@@ -27,35 +28,39 @@ create table auteurs(
   constraint pk_auteur primary key (id_auteur)
 );
 
-create table edition_livre(
-  isbn int,
-  annee_publication int,
-  editeur varchar(50),
-  constraint pk_edition_livre primary key (isbn)
+create table editeurs(
+  id_editeur int,
+  nom_editeur varchar(50),
+  constraint pk_editeur primary key (id_editeur)
 );
 
 create table livres(
-  id_livre int,
-  id_auteur int,
+  isbn int,
+  annee_publication date,
+  id_auteur1 int,
   id_auteur2 int,
   id_auteur3 int,
   titre varchar(100),
-  nombre_exemplaire int,
-  isbn int,
-  id_domaine int,
+  id_editeur int,
   id_sous_domaine int,
-  constraint pk_livres primary key (id_livre),
-  constraint fk_auteur1 foreign key (id_auteur) references auteurs(id_auteur),
-  constraint fk_edition_livre1 foreign key (isbn) references edition_livre(isbn),
-  constraint fk_domaine1 foreign key (id_domaine) references domaines(id_domaine),
-  constraint fk_sous_domaine1 foreign key (id_sous_domaine) references sous_domaines(id_sous_domaine)
+  constraint pk_livres primary key (isbn),
+  constraint fk_auteurs1 foreign key (id_auteur1) references auteurs(id_auteur),
+  constraint fk_auteurs2 foreign key (id_auteur2) references auteurs(id_auteur),
+  constraint fk_auteurs3 foreign key (id_auteur3) references auteurs(id_auteur),
+  constraint fk_editeurs1 foreign key (id_editeur) references editeurs(id_editeur),
+  constraint fk_sous_domaines1 foreign key (id_sous_domaine) references sous_domaines(id_sous_domaine)
+);
+
+create table exemplaires_livres(
+  isbn int,
+  numero_exemplaire int,
+  constraint pk_exemplaires_livres primary key (isbn, numero_exemplaire)
 );
 
 create table emprunteurs(
     id_emprunteur int,
     nom_emprunteur varchar(100),
     prenom_emprunteur varchar(100),
-    nombre_emprunt int,
     id_employe int,
     constraint pk_emprunteurs primary key (id_emprunteur),
     constraint fk_employee foreign key (id_employe) references employees(employee_id)
@@ -66,24 +71,12 @@ create table emprunts(
   date_emprunt date,
   date_retour date,
   id_emprunteur int,
-  id_livre int,
+  isbn int,
+  numero_exemplaire int,
   constraint pk_emprunt primary key (id_emprunt),
   constraint fk_emprunteur foreign key (id_emprunteur) references emprunteurs(id_emprunteur),
-  constraint fk_livre foreign key (id_livre) references livres(id_livre)
+  constraint fk_exemplaires_livres foreign key (isbn, numero_exemplaire) references exemplaires_livres(isbn, numero_exemplaire)
 );
-
-/*
-create table utilisateurs(
-  id_utilisateur int,
-  id_emprunteur int,
-  nom_utilisateur varchar(100),
-  prenom_utilisateur varchar(100),
-  constraint pk_utilisateurs primary key (id_utilisateur),
-  constraint fk_emprunteur foreign key (id_emprunteur) references emprunteurs(id_emprunteur),
-  constraint fk_nom_empr foreign key (nom_utilisateur) references emprunteurs(nom_emprunteur),
-  constraint fk_prenom_empr foreign key (prenom_utilisateur) references emprunteurs(prenom_emprunteur)
-);
-*/
 
 /* Création des utilisateurs (dans la base system) : */
 create user administrateur identified by "administrateur";
@@ -113,17 +106,3 @@ grant update on emprunteurs, emprunts to enregistre;
 (altérer la table "emprunteurs") et à emprunter (altérer la table "emprunts") */
 grant select on consultation_oracle_enregistre to oracle_enregistre;
 grant update on emprunteurs, emprunts to oracle_enregistre;
-
-
-/* pour la suite : créer un trigger qui attribue automatiquement des privilèges de connexion aux nouveaux utilisateurs créés
- - privilèges sur les objets (tables) :
-      - select 
-CREATE OR REPLACE TRIGGER donner_privilèges_nveaux _utilisateurs
-AFTER INSERT ON emprunteurs
-
-BEGIN
-
-
-END;
-/
-*/
