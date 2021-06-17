@@ -87,8 +87,8 @@ create user oracle_enregistre;
 /* Attribution des privilèges pour "administrateur" sur toutes les tables de Projet_BDD (dans la base Projet_BDD) : */
 grant all on auteurs to administrateur;
 grant all on domaines to administrateur;
-grant all on edition_livre to administrateur;
-grant all on employees to administrateur;
+grant all on editeurs to administrateur;
+grant all on exemplaires_livre to administrateur;
 grant all on emprunteurs to administrateur;
 grant all on emprunts to administrateur;
 grant all on livres to administrateur;
