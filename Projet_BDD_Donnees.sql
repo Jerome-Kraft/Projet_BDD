@@ -1,17 +1,32 @@
-insert into domaines values (0, 'Science-fiction');
-insert into domaines values (1, 'informatique');
-insert into domaines values (2, 'Finance');
-insert into domaines values (3, 'Spiritualité');
-insert into domaines values (4, 'Gestion');
-insert into domaines values (5, 'Art');
+insert into domaines values (000, 'Science-fiction');
+insert into domaines values (100, 'Informatique');
+insert into domaines values (200, 'Finance');
+insert into domaines values (300, 'Spiritualité');
+insert into domaines values (400, 'Gestion');
+insert into domaines values (500, 'Art');
+insert into domaines values (600, 'Sciences Humaines');
 
-insert into sous_domaines values (0, 'Magie', 0);
-insert into sous_domaines values (1, 'Space Opera', 0);
-insert into sous_domaines values (2, 'Programmation', 1);
-insert into sous_domaines values (3, 'Base de données', 1);
-insert into sous_domaines values (4, 'Soi intérieur', 3);
-insert into sous_domaines values (5, 'Religion', 3);
-insert into sous_domaines values (6, 'Business', 2);
+insert into sous_domaines values (001, 'Voyages dans le temps', 000);
+insert into sous_domaines values (002, 'Uchronie', 000);
+insert into sous_domaines values (003, 'Cyberpunk', 000);
+insert into sous_domaines values (004, 'Space Opera', 000);
+insert into sous_domaines values (005, 'Space fantasy', 000);
+insert into sous_domaines values (006, 'Science-fiction post-apocalyptique', 000);
+
+insert into sous_domaines values (101, 'Programmation', 100);
+insert into sous_domaines values (102, 'Développement web', 100);
+insert into sous_domaines values (103, 'Base de données', 100);
+insert into sous_domaines values (104, 'Algorithmique', 100);
+insert into sous_domaines values (105, 'Cryptologie', 100);
+insert into sous_domaines values (106, ' Logiciels', 100);
+insert into sous_domaines values (107, "Systèmes d'information", 100);
+insert into sous_domaines values (108, ' Matériel informatique', 100);
+
+insert into sous_domaines values (20, 'Business', 2);
+
+insert into sous_domaines values (30, 'Soi intérieur', 3);
+insert into sous_domaines values (31, 'Religion', 3);
+insert into sous_domaines values (32, 'Magie', 0);
 
 insert into auteurs values (0, 'ROWLING', 'Joanne Kathleen');
 insert into auteurs values (1, 'SMITH', 'Will');
