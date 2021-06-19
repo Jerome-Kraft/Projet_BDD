@@ -131,13 +131,29 @@ Where  e.date_retour is null and (sysdate > e.date_emprunt+30);
 
 ALTER VIEW emprunt_delais_passe COMPILE;
 
-/************************************ Eléments à verifier ********************************************/
 
-/* Vues : détail des livres par catégorie, édition, auteur et nombre d'exemplaires */
-CREATE OR REPLACE VIEW detail_categories
-AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, l.nombre_exemplaire, l.isbn, el.editeur, sd.nom_sous_domaine, d.nom_domaine
-FROM livres l, auteurs a, edition_livre el, sous_domaines sd, domaines d
-WHERE l.isbn = el.isbn AND sd.id_sous_domaine = l.id_sous_domaine AND d.id_domaine = l.id_domaine AND l.id_auteur = a.id_auteur
-ORDER BY l.id_livre;
+CREATE OR REPLACE VIEW detail_domaines
+AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, d.nom_domaine
+FROM livres l, auteurs a, domaines d
+WHERE :new.id_domaine = d.id_domaine
+ORDER BY d.id_domaine;
+
+CREATE OR REPLACE VIEW detail_editeurs
+AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, el.editeur
+FROM livres l, auteurs a, editeurs el
+WHERE :new.isbn = l.isbn
+ORDER BY l.isbn;
+
+CREATE OR REPLACE VIEW detail_auteur
+AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, sd.nom_sous_domaine, d.nom_domaine
+FROM livres l, auteurs a, sous_domaines sd, domaines d
+WHERE :new.id_auteur = a.id_auteur
+ORDER BY a.id_auteur;
+
+CREATE OR REPLACE VIEW detail_nombres_exemplaires
+AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, sd.nom_sous_domaine, d.nom_domaine
+FROM livres l, auteurs a, editeurs el
+WHERE :new.id_auteur = a.id_auteur
+ORDER BY a.id_auteur;
 
 
