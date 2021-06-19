@@ -77,12 +77,6 @@ AS SELECT t.*, e.nom_emprunteur, e.prenom_emprunteur
 FROM emprunteurs e, emprunts t
 WHERE date_retour < SYSDATE AND t.id_emprunteur = e.id_emprunteur;
 
-/* Autre possibilité :
-CREATE OR REPLACE VIEW retard_emprunt 
-AS SELECT * FROM emprunts
-WHERE date_retour < SYSDATE ;
-*/
-
 /* Vues : liste de tous les emprunts en cours (données essentielles de chaque livre,
 données essentielles de chaque emprunteur, date d'emprunt, date de retour prévue) */
 CREATE OR REPLACE VIEW liste_emprunts_en_cours
