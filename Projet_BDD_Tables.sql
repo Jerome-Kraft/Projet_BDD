@@ -46,7 +46,7 @@ create table livres(
   id_auteur1 int not null,
   id_auteur2 int,
   id_auteur3 int,
-  titre varchar(100) not null,
+  titre varchar(200) not null,
   id_editeur int not null,
   id_sous_domaine int not null,
   constraint pk_livres primary key (isbn),
