@@ -52,13 +52,15 @@ BEFORE INSERT ON emprunts
 FOR EACH ROW
 
 DECLARE
-domaine1 domaines.id_domaine%type;
+s_domaine sous_domaines.id_domaine%type;
+domaine domaines.id_domaine%type;
 employe emprunteurs.id_employe%type;
 
 BEGIN
-    SELECT id_domaine INTO domaine1 FROM livres WHERE id_livre = :new.id_livre;
+    SELECT id_sous_domaine INTO s_domaine FROM livres WHERE livres.isbn = :new.isbn;
+    SELECT id_domaine INTO domaine FROM sous_domaines WHERE s_domaine = sous_domaines.id_sous_domaine;
     SELECT id_employe INTO employe FROM emprunteurs WHERE :new.id_emprunteur = id_emprunteur;
-    IF domaine1 = 3 AND employe IS NOT NULL THEN
+    IF domaine = 3 AND employe IS NOT NULL THEN
       raise_application_error(-20001, 'Les employés de la société Oracle ne peuvent pas emprunter de livres traitant de spiritualité.', True);
     END IF;
 END;
