@@ -35,13 +35,13 @@ create table editeurs(
 );
 
 create table exemplaires_livres(
-  isbn int,
+  isbn varchar(50),
   numero_exemplaire int,
   constraint pk_exemplaires_livres primary key (isbn, numero_exemplaire)
 );
 
 create table livres(
-  isbn int,
+  isbn varchar(50),
   annee_publication number not null,
   id_auteur1 int not null,
   id_auteur2 int,
@@ -69,14 +69,13 @@ create table emprunteurs(
 create table emprunts(
   id_emprunt int,
   date_emprunt date not null,
-  date_retour date not null,
+  date_retour date,
   id_emprunteur int not null,
-  isbn int not null,
+  isbn varchar(50) not null,
   numero_exemplaire int not null,
   constraint pk_emprunt primary key (id_emprunt),
   constraint fk_emprunteur foreign key (id_emprunteur) references emprunteurs(id_emprunteur),
   constraint fk_exemplaires_livres1 foreign key (isbn, numero_exemplaire) references exemplaires_livres(isbn, numero_exemplaire),
-  /*constraint fk_exemplaires_livres2 foreign key (numero_exemplaire) references exemplaires_livres(numero_exemplaire)*/
 );
 
 /* Création des utilisateurs (dans la base system) : */
