@@ -1,128 +1,103 @@
 --------------------------------------------------------
---  Fichier créé - samedi-juin-19-2021
+--  Fichier créé - samedi-juin-19-2021   
 --------------------------------------------------------
---------------------------------------------------------
---  DDL for Sequence DEPARTMENTS_SEQ
---------------------------------------------------------
-
-   CREATE SEQUENCE  "HR"."DEPARTMENTS_SEQ"  MINVALUE 1 MAXVALUE 9990 INCREMENT BY 10 START WITH 280 NOCACHE  NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
---------------------------------------------------------
---  DDL for Sequence EMPLOYEES_SEQ
---------------------------------------------------------
-
-   CREATE SEQUENCE  "HR"."EMPLOYEES_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 207 NOCACHE  NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
---------------------------------------------------------
---  DDL for Sequence LOCATIONS_SEQ
---------------------------------------------------------
-
-   CREATE SEQUENCE  "HR"."LOCATIONS_SEQ"  MINVALUE 1 MAXVALUE 9900 INCREMENT BY 100 START WITH 3300 NOCACHE  NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL ;
 --------------------------------------------------------
 --  DDL for Table AUTEURS
 --------------------------------------------------------
 
-  CREATE TABLE "HR"."AUTEURS"
-   (	"ID_AUTEUR" NUMBER(*,0),
-	"NOM_AUTEUR" VARCHAR2(100 BYTE) COLLATE "USING_NLS_COMP",
+  CREATE TABLE "HR"."AUTEURS" 
+   (	"ID_AUTEUR" NUMBER(*,0), 
+	"NOM_AUTEUR" VARCHAR2(100 BYTE) COLLATE "USING_NLS_COMP", 
 	"PRENOM_AUTEUR" VARCHAR2(100 BYTE) COLLATE "USING_NLS_COMP"
-   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255
+   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Table COUNTRIES
---------------------------------------------------------
-
-  CREATE TABLE "HR"."COUNTRIES"
-   (	"COUNTRY_ID" CHAR(2 BYTE) COLLATE "USING_NLS_COMP",
-	"COUNTRY_NAME" VARCHAR2(40 BYTE) COLLATE "USING_NLS_COMP",
-	"REGION_ID" NUMBER,
-	 CONSTRAINT "COUNTRY_C_ID_PK" PRIMARY KEY ("COUNTRY_ID") ENABLE
-   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE
-  ORGANIZATION INDEX NOCOMPRESS PCTFREE 10 INITRANS 2 MAXTRANS 255 LOGGING
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS"
- PCTTHRESHOLD 50;
-
-   COMMENT ON COLUMN "HR"."COUNTRIES"."COUNTRY_ID" IS 'Primary key of countries table.';
-   COMMENT ON COLUMN "HR"."COUNTRIES"."COUNTRY_NAME" IS 'Country name';
-   COMMENT ON COLUMN "HR"."COUNTRIES"."REGION_ID" IS 'Region ID for the country. Foreign key to region_id column in the departments table.';
-   COMMENT ON TABLE "HR"."COUNTRIES"  IS 'country table. Contains 25 rows. References with locations table.';
---------------------------------------------------------
---  DDL for Table DEPARTMENTS
---------------------------------------------------------
-
-  CREATE TABLE "HR"."DEPARTMENTS"
-   (	"DEPARTMENT_ID" NUMBER(4,0),
-	"DEPARTMENT_NAME" VARCHAR2(30 BYTE) COLLATE "USING_NLS_COMP",
-	"MANAGER_ID" NUMBER(6,0),
-	"LOCATION_ID" NUMBER(4,0)
-   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255
- NOCOMPRESS LOGGING
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
-
-   COMMENT ON COLUMN "HR"."DEPARTMENTS"."DEPARTMENT_ID" IS 'Primary key column of departments table.';
-   COMMENT ON COLUMN "HR"."DEPARTMENTS"."DEPARTMENT_NAME" IS 'A not null column that shows name of a department. Administration,
-Marketing, Purchasing, Human Resources, Shipping, IT, Executive, Public
-Relations, Sales, Finance, and Accounting. ';
-   COMMENT ON COLUMN "HR"."DEPARTMENTS"."MANAGER_ID" IS 'Manager_id of a department. Foreign key to employee_id column of employees table. The manager_id column of the employee table references this column.';
-   COMMENT ON COLUMN "HR"."DEPARTMENTS"."LOCATION_ID" IS 'Location id where a department is located. Foreign key to location_id column of locations table.';
-   COMMENT ON TABLE "HR"."DEPARTMENTS"  IS 'Departments table that shows details of departments where employees
-work. Contains 27 rows; references with locations, employees, and job_history tables.';
+  GRANT ALTER ON "HR"."AUTEURS" TO "ADMINISTRATEUR";
+  GRANT DELETE ON "HR"."AUTEURS" TO "ADMINISTRATEUR";
+  GRANT INDEX ON "HR"."AUTEURS" TO "ADMINISTRATEUR";
+  GRANT INSERT ON "HR"."AUTEURS" TO "ADMINISTRATEUR";
+  GRANT SELECT ON "HR"."AUTEURS" TO "ADMINISTRATEUR";
+  GRANT UPDATE ON "HR"."AUTEURS" TO "ADMINISTRATEUR";
+  GRANT REFERENCES ON "HR"."AUTEURS" TO "ADMINISTRATEUR";
+  GRANT READ ON "HR"."AUTEURS" TO "ADMINISTRATEUR";
+  GRANT ON COMMIT REFRESH ON "HR"."AUTEURS" TO "ADMINISTRATEUR";
+  GRANT QUERY REWRITE ON "HR"."AUTEURS" TO "ADMINISTRATEUR";
+  GRANT DEBUG ON "HR"."AUTEURS" TO "ADMINISTRATEUR";
+  GRANT FLASHBACK ON "HR"."AUTEURS" TO "ADMINISTRATEUR";
 --------------------------------------------------------
 --  DDL for Table DOMAINES
 --------------------------------------------------------
 
-  CREATE TABLE "HR"."DOMAINES"
-   (	"ID_DOMAINE" NUMBER(*,0),
+  CREATE TABLE "HR"."DOMAINES" 
+   (	"ID_DOMAINE" NUMBER(*,0), 
 	"NOM_DOMAINE" VARCHAR2(100 BYTE) COLLATE "USING_NLS_COMP"
-   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255
+   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
+  GRANT ALTER ON "HR"."DOMAINES" TO "ADMINISTRATEUR";
+  GRANT DELETE ON "HR"."DOMAINES" TO "ADMINISTRATEUR";
+  GRANT INDEX ON "HR"."DOMAINES" TO "ADMINISTRATEUR";
+  GRANT INSERT ON "HR"."DOMAINES" TO "ADMINISTRATEUR";
+  GRANT SELECT ON "HR"."DOMAINES" TO "ADMINISTRATEUR";
+  GRANT UPDATE ON "HR"."DOMAINES" TO "ADMINISTRATEUR";
+  GRANT REFERENCES ON "HR"."DOMAINES" TO "ADMINISTRATEUR";
+  GRANT READ ON "HR"."DOMAINES" TO "ADMINISTRATEUR";
+  GRANT ON COMMIT REFRESH ON "HR"."DOMAINES" TO "ADMINISTRATEUR";
+  GRANT QUERY REWRITE ON "HR"."DOMAINES" TO "ADMINISTRATEUR";
+  GRANT DEBUG ON "HR"."DOMAINES" TO "ADMINISTRATEUR";
+  GRANT FLASHBACK ON "HR"."DOMAINES" TO "ADMINISTRATEUR";
 --------------------------------------------------------
 --  DDL for Table EDITEURS
 --------------------------------------------------------
 
-  CREATE TABLE "HR"."EDITEURS"
-   (	"ID_EDITEUR" NUMBER(*,0),
+  CREATE TABLE "HR"."EDITEURS" 
+   (	"ID_EDITEUR" NUMBER(*,0), 
 	"NOM_EDITEUR" VARCHAR2(50 BYTE) COLLATE "USING_NLS_COMP"
-   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255
+   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
+  GRANT ALTER ON "HR"."EDITEURS" TO "ADMINISTRATEUR";
+  GRANT DELETE ON "HR"."EDITEURS" TO "ADMINISTRATEUR";
+  GRANT INDEX ON "HR"."EDITEURS" TO "ADMINISTRATEUR";
+  GRANT INSERT ON "HR"."EDITEURS" TO "ADMINISTRATEUR";
+  GRANT SELECT ON "HR"."EDITEURS" TO "ADMINISTRATEUR";
+  GRANT UPDATE ON "HR"."EDITEURS" TO "ADMINISTRATEUR";
+  GRANT REFERENCES ON "HR"."EDITEURS" TO "ADMINISTRATEUR";
+  GRANT READ ON "HR"."EDITEURS" TO "ADMINISTRATEUR";
+  GRANT ON COMMIT REFRESH ON "HR"."EDITEURS" TO "ADMINISTRATEUR";
+  GRANT QUERY REWRITE ON "HR"."EDITEURS" TO "ADMINISTRATEUR";
+  GRANT DEBUG ON "HR"."EDITEURS" TO "ADMINISTRATEUR";
+  GRANT FLASHBACK ON "HR"."EDITEURS" TO "ADMINISTRATEUR";
 --------------------------------------------------------
 --  DDL for Table EMPLOYEES
 --------------------------------------------------------
 
-  CREATE TABLE "HR"."EMPLOYEES"
-   (	"EMPLOYEE_ID" NUMBER(6,0),
-	"FIRST_NAME" VARCHAR2(20 BYTE) COLLATE "USING_NLS_COMP",
-	"LAST_NAME" VARCHAR2(25 BYTE) COLLATE "USING_NLS_COMP",
-	"EMAIL" VARCHAR2(25 BYTE) COLLATE "USING_NLS_COMP",
-	"PHONE_NUMBER" VARCHAR2(20 BYTE) COLLATE "USING_NLS_COMP",
-	"HIRE_DATE" DATE,
-	"JOB_ID" VARCHAR2(10 BYTE) COLLATE "USING_NLS_COMP",
-	"SALARY" NUMBER(8,2),
-	"COMMISSION_PCT" NUMBER(2,2),
-	"MANAGER_ID" NUMBER(6,0),
+  CREATE TABLE "HR"."EMPLOYEES" 
+   (	"EMPLOYEE_ID" NUMBER(6,0), 
+	"FIRST_NAME" VARCHAR2(20 BYTE) COLLATE "USING_NLS_COMP", 
+	"LAST_NAME" VARCHAR2(25 BYTE) COLLATE "USING_NLS_COMP", 
+	"EMAIL" VARCHAR2(25 BYTE) COLLATE "USING_NLS_COMP", 
+	"PHONE_NUMBER" VARCHAR2(20 BYTE) COLLATE "USING_NLS_COMP", 
+	"HIRE_DATE" DATE, 
+	"JOB_ID" VARCHAR2(10 BYTE) COLLATE "USING_NLS_COMP", 
+	"SALARY" NUMBER(8,2), 
+	"COMMISSION_PCT" NUMBER(2,2), 
+	"MANAGER_ID" NUMBER(6,0), 
 	"DEPARTMENT_ID" NUMBER(4,0)
-   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255
+   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
@@ -148,17 +123,29 @@ departments table. Foreign key to employee_id column of employees table.
 column of the departments table';
    COMMENT ON TABLE "HR"."EMPLOYEES"  IS 'employees table. Contains 107 rows. References with departments,
 jobs, job_history tables. Contains a self reference.';
+  GRANT ALTER ON "HR"."EMPLOYEES" TO "ADMINISTRATEUR";
+  GRANT DELETE ON "HR"."EMPLOYEES" TO "ADMINISTRATEUR";
+  GRANT INDEX ON "HR"."EMPLOYEES" TO "ADMINISTRATEUR";
+  GRANT INSERT ON "HR"."EMPLOYEES" TO "ADMINISTRATEUR";
+  GRANT SELECT ON "HR"."EMPLOYEES" TO "ADMINISTRATEUR";
+  GRANT UPDATE ON "HR"."EMPLOYEES" TO "ADMINISTRATEUR";
+  GRANT REFERENCES ON "HR"."EMPLOYEES" TO "ADMINISTRATEUR";
+  GRANT READ ON "HR"."EMPLOYEES" TO "ADMINISTRATEUR";
+  GRANT ON COMMIT REFRESH ON "HR"."EMPLOYEES" TO "ADMINISTRATEUR";
+  GRANT QUERY REWRITE ON "HR"."EMPLOYEES" TO "ADMINISTRATEUR";
+  GRANT DEBUG ON "HR"."EMPLOYEES" TO "ADMINISTRATEUR";
+  GRANT FLASHBACK ON "HR"."EMPLOYEES" TO "ADMINISTRATEUR";
 --------------------------------------------------------
 --  DDL for Table EMPRUNTEURS
 --------------------------------------------------------
 
-  CREATE TABLE "HR"."EMPRUNTEURS"
-   (	"ID_EMPRUNTEUR" NUMBER(*,0),
-	"NOM_EMPRUNTEUR" VARCHAR2(100 BYTE) COLLATE "USING_NLS_COMP",
-	"PRENOM_EMPRUNTEUR" VARCHAR2(100 BYTE) COLLATE "USING_NLS_COMP",
+  CREATE TABLE "HR"."EMPRUNTEURS" 
+   (	"ID_EMPRUNTEUR" NUMBER(*,0), 
+	"NOM_EMPRUNTEUR" VARCHAR2(100 BYTE) COLLATE "USING_NLS_COMP", 
+	"PRENOM_EMPRUNTEUR" VARCHAR2(100 BYTE) COLLATE "USING_NLS_COMP", 
 	"ID_EMPLOYE" NUMBER(*,0)
-   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255
+   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
@@ -168,15 +155,15 @@ jobs, job_history tables. Contains a self reference.';
 --  DDL for Table EMPRUNTS
 --------------------------------------------------------
 
-  CREATE TABLE "HR"."EMPRUNTS"
-   (	"ID_EMPRUNT" NUMBER(*,0),
-	"DATE_EMPRUNT" DATE,
-	"DATE_RETOUR" DATE,
-	"ID_EMPRUNTEUR" NUMBER(*,0),
-	"ISBN" VARCHAR2(50 BYTE) COLLATE "USING_NLS_COMP",
+  CREATE TABLE "HR"."EMPRUNTS" 
+   (	"ID_EMPRUNT" NUMBER(*,0), 
+	"DATE_EMPRUNT" DATE, 
+	"DATE_RETOUR" DATE, 
+	"ID_EMPRUNTEUR" NUMBER(*,0), 
+	"ISBN" VARCHAR2(50 BYTE) COLLATE "USING_NLS_COMP", 
 	"NUMERO_EXEMPLAIRE" NUMBER(*,0)
-   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255
+   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
@@ -186,245 +173,160 @@ jobs, job_history tables. Contains a self reference.';
 --  DDL for Table EXEMPLAIRES_LIVRES
 --------------------------------------------------------
 
-  CREATE TABLE "HR"."EXEMPLAIRES_LIVRES"
-   (	"ISBN" VARCHAR2(50 BYTE) COLLATE "USING_NLS_COMP",
+  CREATE TABLE "HR"."EXEMPLAIRES_LIVRES" 
+   (	"ISBN" VARCHAR2(50 BYTE) COLLATE "USING_NLS_COMP", 
 	"NUMERO_EXEMPLAIRE" NUMBER(*,0)
-   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255
+   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Table JOB_HISTORY
---------------------------------------------------------
-
-  CREATE TABLE "HR"."JOB_HISTORY"
-   (	"EMPLOYEE_ID" NUMBER(6,0),
-	"START_DATE" DATE,
-	"END_DATE" DATE,
-	"JOB_ID" VARCHAR2(10 BYTE) COLLATE "USING_NLS_COMP",
-	"DEPARTMENT_ID" NUMBER(4,0)
-   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255
- NOCOMPRESS LOGGING
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
-
-   COMMENT ON COLUMN "HR"."JOB_HISTORY"."EMPLOYEE_ID" IS 'A not null column in the complex primary key employee_id+start_date.
-Foreign key to employee_id column of the employee table';
-   COMMENT ON COLUMN "HR"."JOB_HISTORY"."START_DATE" IS 'A not null column in the complex primary key employee_id+start_date.
-Must be less than the end_date of the job_history table. (enforced by
-constraint jhist_date_interval)';
-   COMMENT ON COLUMN "HR"."JOB_HISTORY"."END_DATE" IS 'Last day of the employee in this job role. A not null column. Must be
-greater than the start_date of the job_history table.
-(enforced by constraint jhist_date_interval)';
-   COMMENT ON COLUMN "HR"."JOB_HISTORY"."JOB_ID" IS 'Job role in which the employee worked in the past; foreign key to
-job_id column in the jobs table. A not null column.';
-   COMMENT ON COLUMN "HR"."JOB_HISTORY"."DEPARTMENT_ID" IS 'Department id in which the employee worked in the past; foreign key to deparment_id column in the departments table';
-   COMMENT ON TABLE "HR"."JOB_HISTORY"  IS 'Table that stores job history of the employees. If an employee
-changes departments within the job or changes jobs within the department,
-new rows get inserted into this table with old job information of the
-employee. Contains a complex primary key: employee_id+start_date.
-Contains 25 rows. References with jobs, employees, and departments tables.';
---------------------------------------------------------
---  DDL for Table JOBS
---------------------------------------------------------
-
-  CREATE TABLE "HR"."JOBS"
-   (	"JOB_ID" VARCHAR2(10 BYTE) COLLATE "USING_NLS_COMP",
-	"JOB_TITLE" VARCHAR2(35 BYTE) COLLATE "USING_NLS_COMP",
-	"MIN_SALARY" NUMBER(6,0),
-	"MAX_SALARY" NUMBER(6,0)
-   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255
- NOCOMPRESS LOGGING
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
-
-   COMMENT ON COLUMN "HR"."JOBS"."JOB_ID" IS 'Primary key of jobs table.';
-   COMMENT ON COLUMN "HR"."JOBS"."JOB_TITLE" IS 'A not null column that shows job title, e.g. AD_VP, FI_ACCOUNTANT';
-   COMMENT ON COLUMN "HR"."JOBS"."MIN_SALARY" IS 'Minimum salary for a job title.';
-   COMMENT ON COLUMN "HR"."JOBS"."MAX_SALARY" IS 'Maximum salary for a job title';
-   COMMENT ON TABLE "HR"."JOBS"  IS 'jobs table with job titles and salary ranges. Contains 19 rows.
-References with employees and job_history table.';
 --------------------------------------------------------
 --  DDL for Table LIVRES
 --------------------------------------------------------
 
-  CREATE TABLE "HR"."LIVRES"
-   (	"ISBN" VARCHAR2(50 BYTE) COLLATE "USING_NLS_COMP",
-	"ANNEE_PUBLICATION" NUMBER,
-	"ID_AUTEUR1" NUMBER(*,0),
-	"ID_AUTEUR2" NUMBER(*,0),
-	"ID_AUTEUR3" NUMBER(*,0),
-	"TITRE" VARCHAR2(200 BYTE) COLLATE "USING_NLS_COMP",
-	"ID_EDITEUR" NUMBER(*,0),
+  CREATE TABLE "HR"."LIVRES" 
+   (	"ISBN" VARCHAR2(50 BYTE) COLLATE "USING_NLS_COMP", 
+	"ANNEE_PUBLICATION" NUMBER, 
+	"ID_AUTEUR1" NUMBER(*,0), 
+	"ID_AUTEUR2" NUMBER(*,0), 
+	"ID_AUTEUR3" NUMBER(*,0), 
+	"TITRE" VARCHAR2(200 BYTE) COLLATE "USING_NLS_COMP", 
+	"ID_EDITEUR" NUMBER(*,0), 
 	"ID_SOUS_DOMAINE" NUMBER(*,0)
-   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255
+   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Table LOCATIONS
---------------------------------------------------------
-
-  CREATE TABLE "HR"."LOCATIONS"
-   (	"LOCATION_ID" NUMBER(4,0),
-	"STREET_ADDRESS" VARCHAR2(40 BYTE) COLLATE "USING_NLS_COMP",
-	"POSTAL_CODE" VARCHAR2(12 BYTE) COLLATE "USING_NLS_COMP",
-	"CITY" VARCHAR2(30 BYTE) COLLATE "USING_NLS_COMP",
-	"STATE_PROVINCE" VARCHAR2(25 BYTE) COLLATE "USING_NLS_COMP",
-	"COUNTRY_ID" CHAR(2 BYTE) COLLATE "USING_NLS_COMP"
-   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255
- NOCOMPRESS LOGGING
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
-
-   COMMENT ON COLUMN "HR"."LOCATIONS"."LOCATION_ID" IS 'Primary key of locations table';
-   COMMENT ON COLUMN "HR"."LOCATIONS"."STREET_ADDRESS" IS 'Street address of an office, warehouse, or production site of a company.
-Contains building number and street name';
-   COMMENT ON COLUMN "HR"."LOCATIONS"."POSTAL_CODE" IS 'Postal code of the location of an office, warehouse, or production site
-of a company. ';
-   COMMENT ON COLUMN "HR"."LOCATIONS"."CITY" IS 'A not null column that shows city where an office, warehouse, or
-production site of a company is located. ';
-   COMMENT ON COLUMN "HR"."LOCATIONS"."STATE_PROVINCE" IS 'State or Province where an office, warehouse, or production site of a
-company is located.';
-   COMMENT ON COLUMN "HR"."LOCATIONS"."COUNTRY_ID" IS 'Country where an office, warehouse, or production site of a company is
-located. Foreign key to country_id column of the countries table.';
-   COMMENT ON TABLE "HR"."LOCATIONS"  IS 'Locations table that contains specific address of a specific office,
-warehouse, and/or production site of a company. Does not store addresses /
-locations of customers. Contains 23 rows; references with the
-departments and countries tables. ';
---------------------------------------------------------
---  DDL for Table REGIONS
---------------------------------------------------------
-
-  CREATE TABLE "HR"."REGIONS"
-   (	"REGION_ID" NUMBER,
-	"REGION_NAME" VARCHAR2(25 BYTE) COLLATE "USING_NLS_COMP"
-   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255
- NOCOMPRESS LOGGING
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
-
-   COMMENT ON COLUMN "HR"."REGIONS"."REGION_ID" IS 'Primary key of regions table.';
-   COMMENT ON COLUMN "HR"."REGIONS"."REGION_NAME" IS 'Names of regions. Locations are in the countries of these regions.';
-   COMMENT ON TABLE "HR"."REGIONS"  IS 'Regions table that contains region numbers and names. Contains 4 rows; references with the Countries table.';
 --------------------------------------------------------
 --  DDL for Table SOUS_DOMAINES
 --------------------------------------------------------
 
-  CREATE TABLE "HR"."SOUS_DOMAINES"
-   (	"ID_SOUS_DOMAINE" NUMBER(*,0),
-	"NOM_SOUS_DOMAINE" VARCHAR2(100 BYTE) COLLATE "USING_NLS_COMP",
+  CREATE TABLE "HR"."SOUS_DOMAINES" 
+   (	"ID_SOUS_DOMAINE" NUMBER(*,0), 
+	"NOM_SOUS_DOMAINE" VARCHAR2(100 BYTE) COLLATE "USING_NLS_COMP", 
 	"ID_DOMAINE" NUMBER(*,0)
-   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE
-  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255
+   )  DEFAULT COLLATION "USING_NLS_COMP" SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
+  GRANT ALTER ON "HR"."SOUS_DOMAINES" TO "ADMINISTRATEUR";
+  GRANT DELETE ON "HR"."SOUS_DOMAINES" TO "ADMINISTRATEUR";
+  GRANT INDEX ON "HR"."SOUS_DOMAINES" TO "ADMINISTRATEUR";
+  GRANT INSERT ON "HR"."SOUS_DOMAINES" TO "ADMINISTRATEUR";
+  GRANT SELECT ON "HR"."SOUS_DOMAINES" TO "ADMINISTRATEUR";
+  GRANT UPDATE ON "HR"."SOUS_DOMAINES" TO "ADMINISTRATEUR";
+  GRANT REFERENCES ON "HR"."SOUS_DOMAINES" TO "ADMINISTRATEUR";
+  GRANT READ ON "HR"."SOUS_DOMAINES" TO "ADMINISTRATEUR";
+  GRANT ON COMMIT REFRESH ON "HR"."SOUS_DOMAINES" TO "ADMINISTRATEUR";
+  GRANT QUERY REWRITE ON "HR"."SOUS_DOMAINES" TO "ADMINISTRATEUR";
+  GRANT DEBUG ON "HR"."SOUS_DOMAINES" TO "ADMINISTRATEUR";
+  GRANT FLASHBACK ON "HR"."SOUS_DOMAINES" TO "ADMINISTRATEUR";
 --------------------------------------------------------
 --  DDL for View CONSULTATION
 --------------------------------------------------------
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."CONSULTATION" ("NOM_AUTEUR", "PRENOM_AUTEUR", "TITRE", "NOMBRE_EXEMPLAIRE", "ANNEE_PUBLICATION", "EDITEUR", "NOM_DOMAINE", "NOM_SOUS_DOMAINE") DEFAULT COLLATION "USING_NLS_COMP"  AS
-  SELECT a.nom_auteur, a.prenom_auteur, l.titre, l.nombre_exemplaire, ed.annee_publication, ed.editeur,
-d.nom_domaine, sd.nom_sous_domaine
-FROM auteurs a, livres l, edition_livre ed, domaines d, sous_domaines sd
-WHERE l.id_auteur = a.id_auteur AND l.isbn = ed.isbn AND l.id_domaine = d.id_domaine AND l.id_sous_domaine = sd.id_sous_domaine
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."CONSULTATION" ("NOM_AUTEUR", "PRENOM_AUTEUR", "TITRE", "ANNEE_PUBLICATION", "NOM_EDITEUR", "NOM_DOMAINE", "NOM_SOUS_DOMAINE") DEFAULT COLLATION "USING_NLS_COMP"  AS 
+  SELECT a.nom_auteur, a.prenom_auteur, l.titre, l.annee_publication, ed.nom_editeur, d.nom_domaine, sd.nom_sous_domaine
+FROM auteurs a, livres l, editeurs ed, domaines d, sous_domaines sd
+WHERE l.id_auteur1 = a.id_auteur AND l.id_editeur = ed.id_editeur AND sd.id_domaine = d.id_domaine AND l.id_sous_domaine = sd.id_sous_domaine
 ;
+  GRANT SELECT ON "HR"."CONSULTATION" TO "INVITE";
+  GRANT SELECT ON "HR"."CONSULTATION" TO "ENREGISTRE";
 --------------------------------------------------------
 --  DDL for View CONSULTATION_ORACLE_ENREGISTRE
 --------------------------------------------------------
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."CONSULTATION_ORACLE_ENREGISTRE" ("NOM_AUTEUR", "PRENOM_AUTEUR", "TITRE", "NOMBRE_EXEMPLAIRE", "ANNEE_PUBLICATION", "EDITEUR", "NOM_DOMAINE", "NOM_SOUS_DOMAINE") DEFAULT COLLATION "USING_NLS_COMP"  AS
-  SELECT a.nom_auteur, a.prenom_auteur, l.titre, l.nombre_exemplaire, ed.annee_publication, ed.editeur,
-d.nom_domaine, sd.nom_sous_domaine
-FROM auteurs a, livres l, edition_livre ed, domaines d, sous_domaines sd
-WHERE l.id_auteur = a.id_auteur AND l.isbn = ed.isbn AND l.id_domaine = d.id_domaine AND l.id_sous_domaine = sd.id_sous_domaine AND l.id_domaine != 3
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."CONSULTATION_ORACLE_ENREGISTRE" ("NOM_AUTEUR", "PRENOM_AUTEUR", "TITRE", "ANNEE_PUBLICATION", "NOM_EDITEUR", "NOM_DOMAINE", "NOM_SOUS_DOMAINE") DEFAULT COLLATION "USING_NLS_COMP"  AS 
+  SELECT a.nom_auteur, a.prenom_auteur, l.titre, l.annee_publication, ed.nom_editeur, d.nom_domaine, sd.nom_sous_domaine
+FROM auteurs a, livres l, editeurs ed, domaines d, sous_domaines sd
+WHERE l.id_auteur1 = a.id_auteur AND l.id_editeur = ed.id_editeur AND sd.id_domaine = d.id_domaine AND l.id_sous_domaine = sd.id_sous_domaine AND (sd.id_domaine != 300)
 ;
+  GRANT SELECT ON "HR"."CONSULTATION_ORACLE_ENREGISTRE" TO "ORACLE_ENREGISTRE";
 --------------------------------------------------------
---  DDL for View DETAIL_CATEGORIES
+--  DDL for View DETAIL_AUTEURS
 --------------------------------------------------------
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."DETAIL_CATEGORIES" ("NOM_AUTEUR", "PRENOM_AUTEUR", "TITRE", "NOMBRE_EXEMPLAIRE", "ISBN", "EDITEUR", "NOM_SOUS_DOMAINE", "NOM_DOMAINE") DEFAULT COLLATION "USING_NLS_COMP"  AS
-  SELECT a.nom_auteur, a.prenom_auteur, l.titre, l.nombre_exemplaire, l.isbn, el.editeur, sd.nom_sous_domaine, d.nom_domaine
-FROM livres l, auteurs a, edition_livre el, sous_domaines sd, domaines d
-WHERE l.isbn = el.isbn AND sd.id_sous_domaine = l.id_sous_domaine AND d.id_domaine = l.id_domaine AND l.id_auteur = a.id_auteur
-ORDER BY l.id_livre
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."DETAIL_AUTEURS" ("ID_AUTEUR", "NOM_AUTEUR", "PRENOM_AUTEUR") DEFAULT COLLATION "USING_NLS_COMP"  AS 
+  SELECT "ID_AUTEUR","NOM_AUTEUR","PRENOM_AUTEUR"
+FROM auteurs
 ;
 --------------------------------------------------------
---  DDL for View EMP_DETAILS_VIEW
+--  DDL for View DETAIL_DOMAINES
 --------------------------------------------------------
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."EMP_DETAILS_VIEW" ("EMPLOYEE_ID", "JOB_ID", "MANAGER_ID", "DEPARTMENT_ID", "LOCATION_ID", "COUNTRY_ID", "FIRST_NAME", "LAST_NAME", "SALARY", "COMMISSION_PCT", "DEPARTMENT_NAME", "JOB_TITLE", "CITY", "STATE_PROVINCE", "COUNTRY_NAME", "REGION_NAME") DEFAULT COLLATION "USING_NLS_COMP"  AS
-  SELECT
-  e.employee_id,
-  e.job_id,
-  e.manager_id,
-  e.department_id,
-  d.location_id,
-  l.country_id,
-  e.first_name,
-  e.last_name,
-  e.salary,
-  e.commission_pct,
-  d.department_name,
-  j.job_title,
-  l.city,
-  l.state_province,
-  c.country_name,
-  r.region_name
-FROM
-  employees e,
-  departments d,
-  jobs j,
-  locations l,
-  countries c,
-  regions r
-WHERE e.department_id = d.department_id
-  AND d.location_id = l.location_id
-  AND l.country_id = c.country_id
-  AND c.region_id = r.region_id
-  AND j.job_id = e.job_id
-WITH READ ONLY
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."DETAIL_DOMAINES" ("ID_DOMAINE", "NOM_DOMAINE") DEFAULT COLLATION "USING_NLS_COMP"  AS 
+  SELECT "ID_DOMAINE","NOM_DOMAINE"
+FROM domaines
+;
+--------------------------------------------------------
+--  DDL for View DETAIL_EDITEURS
+--------------------------------------------------------
+
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."DETAIL_EDITEURS" ("ID_EDITEUR", "NOM_EDITEUR") DEFAULT COLLATION "USING_NLS_COMP"  AS 
+  SELECT "ID_EDITEUR","NOM_EDITEUR"
+FROM editeurs
+;
+--------------------------------------------------------
+--  DDL for View DETAIL_SOUS_DOMAINES
+--------------------------------------------------------
+
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."DETAIL_SOUS_DOMAINES" ("ID_SOUS_DOMAINE", "NOM_SOUS_DOMAINE", "ID_DOMAINE") DEFAULT COLLATION "USING_NLS_COMP"  AS 
+  SELECT "ID_SOUS_DOMAINE","NOM_SOUS_DOMAINE","ID_DOMAINE"
+FROM sous_domaines
+;
+--------------------------------------------------------
+--  DDL for View HISTORIQUE_EMPRUNT_PASSE
+--------------------------------------------------------
+
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."HISTORIQUE_EMPRUNT_PASSE" ("ID_EMPRUNT", "DATE_EMPRUNT", "DATE_RETOUR", "ID_EMPRUNTEUR", "ISBN", "NUMERO_EXEMPLAIRE") DEFAULT COLLATION "USING_NLS_COMP"  AS 
+  SELECT e.id_emprunt, e.date_emprunt, e.date_retour, e.id_emprunteur, e.isbn, e.numero_exemplaire
+FROM emprunts e
+WHERE  e.date_retour is not null
+;
+--------------------------------------------------------
+--  DDL for View LISTE_EMPRUNTS
+--------------------------------------------------------
+
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."LISTE_EMPRUNTS" ("ID_EMPRUNT", "DATE_EMPRUNT", "DATE_RETOUR", "ID_EMPRUNTEUR", "ISBN", "NUMERO_EXEMPLAIRE") DEFAULT COLLATION "USING_NLS_COMP"  AS 
+  SELECT "ID_EMPRUNT","DATE_EMPRUNT","DATE_RETOUR","ID_EMPRUNTEUR","ISBN","NUMERO_EXEMPLAIRE"
+FROM emprunts
+;
+--------------------------------------------------------
+--  DDL for View LISTE_EMPRUNTS_EMPLOYE
+--------------------------------------------------------
+
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."LISTE_EMPRUNTS_EMPLOYE" ("ID_EMPLOYE", "NOM_EMPRUNTEUR", "PRENOM_EMPRUNTEUR", "ID_EMPRUNT", "DATE_EMPRUNT", "DATE_RETOUR", "ISBN", "NUMERO_EXEMPLAIRE") DEFAULT COLLATION "USING_NLS_COMP"  AS 
+  SELECT  t.id_employe, t.nom_emprunteur, t.prenom_emprunteur, e.id_emprunt, e.date_emprunt, e.date_retour, e.ISBN, e.numero_exemplaire
+FROM emprunteurs t, emprunts e
+WHERE t.id_employe is not NULL
+order by t.nom_emprunteur
 ;
 --------------------------------------------------------
 --  DDL for View LISTE_EMPRUNTS_EN_COURS
 --------------------------------------------------------
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."LISTE_EMPRUNTS_EN_COURS" ("ID_EMPRUNTEUR", "NOM_EMPRUNTEUR", "PRENOM_EMPRUNTEUR", "ID_EMPRUNT", "DATE_EMPRUNT", "DATE_RETOUR", "TITRE", "NOM_AUTEUR", "PRENOM_AUTEUR", "ANNEE_PUBLICATION", "ID_SOUS_DOMAINE", "ID_DOMAINE") DEFAULT COLLATION "USING_NLS_COMP"  AS
-  SELECT e.id_emprunteur, e.nom_emprunteur, e.prenom_emprunteur, t.id_emprunt, t.date_emprunt, t.date_retour, l.titre, a.nom_auteur,
-a.prenom_auteur, el.annee_publication, l.id_sous_domaine, l.id_domaine
-FROM livres l, auteurs a, edition_livre el, emprunteurs e, emprunts t
-WHERE t.date_retour > sysdate AND l.id_livre = t.id_livre AND l.id_auteur = a.id_auteur AND l.isbn = el.isbn
-AND t.id_emprunteur = e.id_emprunteur
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."LISTE_EMPRUNTS_EN_COURS" ("ID_EMPRUNTEUR", "NOM_EMPRUNTEUR", "PRENOM_EMPRUNTEUR", "ID_EMPRUNT", "DATE_EMPRUNT", "TITRE", "NOM_AUTEUR", "PRENOM_AUTEUR", "ANNEE_PUBLICATION", "ID_SOUS_DOMAINE", "ISBN", "NOM_EDITEUR", "NUMERO_EXEMPLAIRE") DEFAULT COLLATION "USING_NLS_COMP"  AS 
+  SELECT e.id_emprunteur, e.nom_emprunteur, e.prenom_emprunteur, t.id_emprunt, t.date_emprunt, l.titre, a.nom_auteur, a.prenom_auteur, l.annee_publication, l.id_sous_domaine, l.isbn, ed.nom_editeur, t.numero_exemplaire
+FROM livres l, auteurs a, editeurs ed, emprunteurs e, emprunts t
+WHERE t.date_retour is null AND l.isbn = t.isbn AND l.id_auteur1 = a.id_auteur AND l.id_editeur = ed.id_editeur AND e.id_emprunteur = t.id_emprunteur
 ;
 --------------------------------------------------------
 --  DDL for View RETARD_EMPRUNT
 --------------------------------------------------------
 
-  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."RETARD_EMPRUNT" ("ID_EMPRUNT", "DATE_EMPRUNT", "DATE_RETOUR", "ID_EMPRUNTEUR", "ID_LIVRE", "NOM_EMPRUNTEUR", "PRENOM_EMPRUNTEUR") DEFAULT COLLATION "USING_NLS_COMP"  AS
-  SELECT t."ID_EMPRUNT",t."DATE_EMPRUNT",t."DATE_RETOUR",t."ID_EMPRUNTEUR",t."ID_LIVRE", e.nom_emprunteur, e.prenom_emprunteur
+  CREATE OR REPLACE FORCE EDITIONABLE VIEW "HR"."RETARD_EMPRUNT" ("ID_EMPRUNT", "DATE_EMPRUNT", "DATE_RETOUR", "ID_EMPRUNTEUR", "ISBN", "NUMERO_EXEMPLAIRE", "NOM_EMPRUNTEUR", "PRENOM_EMPRUNTEUR") DEFAULT COLLATION "USING_NLS_COMP"  AS 
+  SELECT t."ID_EMPRUNT",t."DATE_EMPRUNT",t."DATE_RETOUR",t."ID_EMPRUNTEUR",t."ISBN",t."NUMERO_EXEMPLAIRE", e.nom_emprunteur, e.prenom_emprunteur
 FROM emprunteurs e, emprunts t
-WHERE date_retour < SYSDATE AND t.id_emprunteur = e.id_emprunteur
+WHERE date_retour is null AND sysdate > date_emprunt+30 AND t.id_emprunteur = e.id_emprunteur
 ;
 REM INSERTING into HR.AUTEURS
 SET DEFINE OFF;
@@ -704,7 +606,16 @@ Insert into HR.EMPRUNTEURS (ID_EMPRUNTEUR,NOM_EMPRUNTEUR,PRENOM_EMPRUNTEUR,ID_EM
 Insert into HR.EMPRUNTEURS (ID_EMPRUNTEUR,NOM_EMPRUNTEUR,PRENOM_EMPRUNTEUR,ID_EMPLOYE) values ('8','OSMANI','Aomar',null);
 REM INSERTING into HR.EMPRUNTS
 SET DEFINE OFF;
-Insert into HR.EMPRUNTS (ID_EMPRUNT,DATE_EMPRUNT,DATE_RETOUR,ID_EMPRUNTEUR,ISBN,NUMERO_EXEMPLAIRE) values ('0',to_date('19/06/21','DD/MM/RR'),null,'7','-22794','1');
+Insert into HR.EMPRUNTS (ID_EMPRUNT,DATE_EMPRUNT,DATE_RETOUR,ID_EMPRUNTEUR,ISBN,NUMERO_EXEMPLAIRE) values ('1',to_date('19/06/21','DD/MM/RR'),null,'7','2-226-02482-4','1');
+Insert into HR.EMPRUNTS (ID_EMPRUNT,DATE_EMPRUNT,DATE_RETOUR,ID_EMPRUNTEUR,ISBN,NUMERO_EXEMPLAIRE) values ('0',to_date('19/06/21','DD/MM/RR'),null,'7','978-2-07-046361-9','1');
+Insert into HR.EMPRUNTS (ID_EMPRUNT,DATE_EMPRUNT,DATE_RETOUR,ID_EMPRUNTEUR,ISBN,NUMERO_EXEMPLAIRE) values ('5',to_date('19/06/21','DD/MM/RR'),null,'2','978-2-07-036063-5','1');
+Insert into HR.EMPRUNTS (ID_EMPRUNT,DATE_EMPRUNT,DATE_RETOUR,ID_EMPRUNTEUR,ISBN,NUMERO_EXEMPLAIRE) values ('2',to_date('19/06/21','DD/MM/RR'),null,'7','978-1-60796-273-1','1');
+Insert into HR.EMPRUNTS (ID_EMPRUNT,DATE_EMPRUNT,DATE_RETOUR,ID_EMPRUNTEUR,ISBN,NUMERO_EXEMPLAIRE) values ('4',to_date('19/06/21','DD/MM/RR'),null,'5','978-0-575-09996-8','1');
+Insert into HR.EMPRUNTS (ID_EMPRUNT,DATE_EMPRUNT,DATE_RETOUR,ID_EMPRUNTEUR,ISBN,NUMERO_EXEMPLAIRE) values ('3',to_date('19/06/21','DD/MM/RR'),null,'5','978-2-07-507838-2','1');
+Insert into HR.EMPRUNTS (ID_EMPRUNT,DATE_EMPRUNT,DATE_RETOUR,ID_EMPRUNTEUR,ISBN,NUMERO_EXEMPLAIRE) values ('6',to_date('23/04/21','DD/MM/RR'),to_date('13/05/21','DD/MM/RR'),'2','979-10-354-0250-1','4');
+Insert into HR.EMPRUNTS (ID_EMPRUNT,DATE_EMPRUNT,DATE_RETOUR,ID_EMPRUNTEUR,ISBN,NUMERO_EXEMPLAIRE) values ('8',to_date('19/05/21','DD/MM/RR'),to_date('05/06/21','DD/MM/RR'),'6','979-10-354-0250-1','7');
+Insert into HR.EMPRUNTS (ID_EMPRUNT,DATE_EMPRUNT,DATE_RETOUR,ID_EMPRUNTEUR,ISBN,NUMERO_EXEMPLAIRE) values ('9',to_date('11/04/21','DD/MM/RR'),null,'3','978-2-7578-8711-0','1');
+Insert into HR.EMPRUNTS (ID_EMPRUNT,DATE_EMPRUNT,DATE_RETOUR,ID_EMPRUNTEUR,ISBN,NUMERO_EXEMPLAIRE) values ('7',to_date('11/04/21','DD/MM/RR'),null,'3','979-10-354-0250-1','2');
 REM INSERTING into HR.EXEMPLAIRES_LIVRES
 SET DEFINE OFF;
 Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('-10045','1');
@@ -853,6 +764,38 @@ Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('-9601','2');
 Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('-9608','1');
 Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('-9608','2');
 Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('-9682','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('0-553-29335-4','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('0007491514','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-07-033691-3','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-07-041977-0','0');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-221-09383-6','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-221-09383-6','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-221-09462-1','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-221-09818-8','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-221-09818-8','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-226-02482-4','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-226-07009-5','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-253-05297-3','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-253-06409-2','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-253-07214-1','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-253-15143-2','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-253-15143-2','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-253-15149-1','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-253-15161-0','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-264-02881-5','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-290-12137-1','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-290-12137-1','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-290-12137-1','3');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-290-18557-4','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-290-18557-4','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-290-18557-4','3');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-290-33275-5','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-290-33290-9','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-290-33675-0','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-84172-169-8','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-910196-60-7','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-910196-60-7','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('2-910196-60-7','3');
 Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('273','1');
 Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('289','1');
 Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('364','1');
@@ -865,9 +808,138 @@ Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('364','7');
 Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('372','1');
 Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('534','1');
 Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('7491514','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('78-2253151623','1');
 Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('83','1');
 Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('83','2');
 Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('83','3');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-0-00-811749-8','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-0-575-09996-8','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-0-575-09996-8','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-1-60796-273-1','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-1-84159-332-6','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-07-036052-9','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-07-036053-6','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-07-036055-0','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-07-036063-5','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-07-036766-5','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-07-037966-8','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-07-046361-9','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-07-046362-6','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-07-287190-0','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-07-292750-8','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-07-507838-2','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-07-513909-0','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-10-078672-5','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-10-078672-5','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-10-079068-5','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-10-080712-3','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-10-081430-5','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-10-081634-7','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-10-081634-7','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-10-081634-7','3');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-10-081896-9','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-10-081896-9','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-10-081896-9','3');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-212-67903-8','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-212-67973-1','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-212-73061-6','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-212-73061-6','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-212-73061-6','3');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-212-80165-1','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-212-80165-1','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-212-80165-1','3');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-221-13014-8','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-221-13014-8','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-221-21868-6','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-226-23993-8','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-226-45033-3','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-253-08318-4','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-253-12292-0','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-253-12292-0','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-253-12292-0','3');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-253-18353-2','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-253-19523-8','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-264-07495-9','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-266-15736-0','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-266-23501-3','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-266-24065-9','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-266-25698-8','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-266-29776-9','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-283-03325-8','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-283-03409-5','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-283-03409-5','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-02020-3','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-03366-1','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-08232-4','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-08840-1','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-17280-3','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-18555-1','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-18555-1','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-18555-1','3');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-18559-9','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-18559-9','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-18559-9','3');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-18561-2','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-18561-2','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-18561-2','3');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-22726-8','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-22727-5','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-22727-5','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-22727-5','3');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-31116-5','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-31125-7','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-31902-4','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-290-32794-4','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-302-08362-2','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-330-02678-3','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-330-02678-3','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-340-01782-5','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-35185-243-9','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-36188-356-0','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-36736-070-6','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-36762-843-1','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-36762-843-1','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-36762-843-1','3');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-36762-844-8','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-36762-844-8','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-36762-844-8','3');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-36762-845-5','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-36762-846-2','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-36762-846-2','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-36762-846-2','3');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-38015-261-6','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-412-05414-7','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-416-00018-8','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-7578-5139-5','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-7578-8711-0','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-8132-0494-3','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-8132-2310-4','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-8160-1386-3','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-85829-718-4','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-87862-758-9','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-87862-758-9','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-88953-373-2','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-88953-408-1','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2-917157-19-0','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2266155007','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2709646048','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-2709646048','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-3-453-19657-5','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('978-3-453-52795-9','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('979-10-281-0407-8','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('979-10-307-0282-8','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('979-10-307-0365-8','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('979-10-354-0250-1','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('979-10-354-0250-1','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('979-10-354-0250-1','3');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('979-10-354-0250-1','4');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('979-10-354-0250-1','5');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('979-10-354-0250-1','6');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('979-10-354-0250-1','7');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('979-10-354-0531-1','1');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('979-10-354-0531-1','2');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('979-10-354-0531-1','3');
+Insert into HR.EXEMPLAIRES_LIVRES (ISBN,NUMERO_EXEMPLAIRE) values ('979-10-94653-35-7','1');
 REM INSERTING into HR.JOB_HISTORY
 SET DEFINE OFF;
 Insert into HR.JOB_HISTORY (EMPLOYEE_ID,START_DATE,END_DATE,JOB_ID,DEPARTMENT_ID) values ('102',to_date('13/01/93','DD/MM/RR'),to_date('24/07/98','DD/MM/RR'),'IT_PROG','60');
@@ -903,119 +975,119 @@ Insert into HR.JOBS (JOB_ID,JOB_TITLE,MIN_SALARY,MAX_SALARY) values ('HR_REP','H
 Insert into HR.JOBS (JOB_ID,JOB_TITLE,MIN_SALARY,MAX_SALARY) values ('PR_REP','Public Relations Representative','4500','10500');
 REM INSERTING into HR.LIVRES
 SET DEFINE OFF;
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-286221','2019','0',null,null,'La Machine à explorer le temps','0','10');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-35802','2007','1',null,null,'Sur la route','0','580');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-22794','2014','2',null,null,'Le Talisman des territoires Intégrale','1','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-10045','2002','2',null,null,'Le Talisman des territoires Tome 1','2','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-9608','2002','2',null,null,'Le Talisman des territoires Tome 2','2','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-2253150645','2007','2',null,null,'Shining L_Enfant lumière','4','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-2709645070','2013','2',null,null,'Shining','5','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-11569','2008','2',null,null,'La Ligne Verte','4','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-15412','2006','2',null,null,'Rêves et Cauchemars','4','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-7238','1994','2',null,null,'Rêves et Cauchemars','6','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-18808','2014','2',null,null,'Nuit noire, étoiles mortes','4','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-23251','2012','2',null,null,'Nuit noire, étoiles mortes','6','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-15396','2003','2',null,null,'Simetierre','4','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-2710','1985','2',null,null,'Simetierre','6','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-15401','2004','2',null,null,'Différentes saisons','4','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-16597','2019','3',null,null,'Royaume magique à vendre','3','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('289','2020','4',null,null,'Neuromancien','7','30');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-291789','2021','5',null,null,'Aucun souvenir assez solide','0','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-916200','2012','5',null,null,'Aucun souvenir assez solide','8','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-2681','2015','6',null,null,'Brèche dans l_espace','3','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-5551','1990','6',null,null,'Brèche dans l_espace','4','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-3148','1999','6',null,null,'Ubik','9','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-9682','2001','6',null,null,'Ubik','2','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-6792','2019','6',null,null,'Ubik','9','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('372','2019','7','8',null,'De bons présages','7','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-8155','2014','7','8',null,'De bons présages','3','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('364','2020','7','8',null,'Good Omens','10','430');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-41982','2002','9',null,null,'Les Dieux eux-mêmes','0','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-22048','2020','9',null,null,'Le cycle des robots (Tome 1) Les robots','3','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-22046','2020','9',null,null,'Le cycle des robots (Tome 1) Les robots','3','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-30446','2016','9',null,null,'Le cycle des robots (Tome 2) Un défilé de robots','3','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-17870','2018','9',null,null,'Le cycle des robots (Tome 2) Un défilé de robots','3','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-31220','2020','9',null,null,'Le cycle des robots (Tome 3) Les cavernes d_acier','3','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-18849','2001','9',null,null,'Le cycle des robots (Tome 3) Les cavernes d_acier','3','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-32112','2020','9',null,null,'Le cycle des robots (Tome 4) Face aux feux du soleil','3','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-17882','2018','9',null,null,'Le cycle des robots (Tome 4) Face aux feux du soleil','3','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-33568','2005','9',null,null,'Le cycle des robots (Tome 5) Les robots de l_aube','3','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-17877','2018','9',null,null,'Le cycle des robots (Tome 5) Les robots de l_aube','3','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-30435','2007','9',null,null,'Le cycle des robots (Tome 6) Les robots et l_empire','3','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-12426','2001','9',null,null,'Le cycle des robots (Tome 6) Les robots et l_empire','3','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-36630','2019','9',null,null,'Fondation : Le cycle de Fondation (Tome 1)','10','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-35090','2009','9',null,null,'Fondation : Le cycle de Fondation (Tome 1)','0','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-35086','2009','9',null,null,'Fondation et Empire : Le cycle de Fondation (Tome 2)','0','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-36638','2019','9',null,null,'Fondation et Empire : Le cycle de Fondation (Tome 2)','10','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-35092','2009','9',null,null,'Seconde Fondation: Le cycle de Fondation (Tome 3)','0','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-36636','2019','9',null,null,'Seconde Fondation: Le cycle de Fondation (Tome 3)','10','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-35099','2009','9',null,null,'Fondation foudroyée: Le cycle de Fondation (Tome 4)','0','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-36634','2009','9',null,null,'Fondation foudroyée: Le cycle de Fondation (Tome 4)','10','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-37005','2009','9',null,null,'Terre et Fondation: Le cycle de Fondation (Tome 5)','0','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('83','2021','9',null,null,'Terre et Fondation: Le cycle de Fondation (Tome 5)','10','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-24996','2014','9',null,null,'Prélude à Fondation : Le cycle de Fondation (Tome 6)','1','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-15026','2014','9',null,null,'L_Aube de Fondation : Le cycle de Fondation (Tome 7)','1','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-810779','2016','9',null,null,'Foundation','11','430');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-29892','2004','9',null,null,'Foundation','12','430');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-83520','2015','9',null,null,'Foundation Trilogy','13','430');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-60093','2010','9',null,null,'Foundation Trilogy','14','430');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-52282','2012','9',null,null,'Die Foundation-Trilogie','15','440');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-19140','2001','9',null,null,'Die frühe Foundation-Trilogie','15','440');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-45401','2015','9',null,null,'Le cycle de Fondation Intégrale Tome 1','0','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-45399','2015','9',null,null,'Le cycle de Fondation Intégrale Tome 2','0','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('7491514','2013','9',null,null,'I, Robot','16','430');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-17632','2016','10',null,null,'Silo','4','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-2035','2013','10',null,null,'Silo','17','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-87653','2014','10',null,null,'Silo','18','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-11746','2015','11',null,null,'Dans l_abîme du temps','19','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-15313','2020','11',null,null,'Dans l_abîme du temps','19','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-33587','2003','11',null,null,'Dagon','3','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('273','2019','11',null,null,'Dagon','20','50');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-84347','2001','12',null,null,'Voici l_homme','21','10');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-2266154029','2007','13',null,null,'La brèche','1','20');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-7550','2013','6',null,null,'Le Maître du Haut Château','3','20');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-7599','2017','14',null,null,'Le Samouraï virtuel','4','30');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-33699','2006','14',null,null,'Zodiac','0','30');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-29075','2020','15',null,null,'L_Abominable','1','40');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-21119','2019','15',null,null,'L_Abominable','2','40');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-9601','2010','15',null,null,'Hyperion','22','430');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-2640','2020','16',null,null,'Après le monde','23','60');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-2721','2020','16',null,null,'Après le monde','23','60');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-7466','1999','17',null,null,'Ciel brûlant de minuit','4','60');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-12267','2014','17',null,null,'Ciel brûlant de minuit','2','60');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-79749','2020','18',null,null,'C++','24','110');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-80675','2020','18',null,null,'C++','24','110');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-80469','2020','19',null,null,'Tout JavaScript','24','120');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-80939','2020','19',null,null,'Tout JavaScript','24','120');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('534','2020','20',null,null,'Programmer en Java - Couvre Java 10 à 14','25','110');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-79402','2020','20',null,null,'Programmer en Java - Couvre Java 10 à 14','25','110');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-67147','2020','24',null,null,'Réussir son référencement web - Stratégie et techniques SEO','25','120');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-72303','2020','24',null,null,'Réussir son référencement web - Stratégie et techniques SEO','25','120');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-67210','2020','25',null,null,'Oh my code ! - Je crée mon premier site web','25','120');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-78107','2018','26',null,null,'Bases de données - Concepts, utilisation et développement','24','130');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-77711','2018','26',null,null,'Bases de données - Concepts, utilisation et développement','24','130');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-1151','2017','27',null,null,'Bases de données et systèmes d_information - Modèle relationnel, SQL, modélisation des données','27','130');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-506871','2017','21',null,null,'Minecraft, le guide création','0','160');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-512940','2020','22',null,null,'Minecraft - Le guide survie officiel','0','160');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-7690','2020','23',null,null,'The Legend of Zelda : Breath of the Wild - La création d_un prodige','26','160');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-35568','2020','28',null,null,'Le guide du lightworker. Tout part de toi ! - Avec 3 oracles à découper et + de 50 tests et exercices','28','310');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-85575','2012','29',null,null,'Oracle de Gaïa','29','310');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-9470','2020','30',null,null,'L_Oracle du peuple végétal','30','310');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-7653','2012','31',null,null,'La magie','30','330');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-8573','2018','32',null,null,'Magie blanche - Grimoire des sorts et enchantements bénéfiques','31','330');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-33963','2004','33',null,null,'Le guide de la magie blanche - Recettes de sorcières','3','330');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-35836','2020','34',null,null,'La haute magie d_Isis - Eset et les mystères de l_Egypte antique','32','330');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-93726','2018','35',null,null,'L_Alchimie Zodiacale et l_Ascension Vibratoire','33','340');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-4857','2020','36',null,null,'Astrologie','34','340');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-1337','2010','37',null,null,'Le pouvoir du moment présent. Guide d_éveil spirituel','3','350');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-88352','2020','38','39',null,'Le 5e accord toltèque - La voie de la maîtrise de soi','35','350');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-88386','2020','38','39',null,'Le 5e accord toltèque - La voie de la maîtrise de soi','35','350');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-34461','2017','40',null,null,'Dossiers Warren - Les plus célèbres affaires des enquêteurs du paranormal Ed et Lorraine Warren','36','360');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-910261','2006','41',null,null,'La Bible satanique','37','360');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-37306','2021','42',null,null,'Le paranormal en question(s)','38','360');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-23364','2014','43',null,null,'L_âme du monde','1','380');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-6662','1993','44',null,null,'Le prophète','4','380');
-Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('-44286','2020','45','46',null,'Après Jésus - L_invention du christianisme','6','380');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-253-19523-8','2014','2',null,null,'Nuit noire, étoiles mortes','4','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-226-23993-8','2012','2',null,null,'Nuit noire, étoiles mortes','6','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-253-15143-2','2003','2',null,null,'Simetierre','4','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-226-02482-4','1985','2',null,null,'Simetierre','6','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-253-15149-1','2004','2',null,null,'Différentes saisons','4','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-290-17280-3','2019','3',null,null,'Royaume magique à vendre','3','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('979-10-307-0365-8','2020','4',null,null,'Neuromancien','7','30');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-07-292750-8','2021','5',null,null,'Aucun souvenir assez solide','0','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-917157-19-0','2012','5',null,null,'Aucun souvenir assez solide','8','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-290-03366-1','2015','6',null,null,'Brèche dans l_espace','3','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-253-05297-3','1990','6',null,null,'Brèche dans l_espace','4','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-264-02881-5','1999','6',null,null,'Ubik','9','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-221-09462-1','2001','6',null,null,'Ubik','2','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-264-07495-9','2019','6',null,null,'Ubik','9','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('979-10-307-0282-8','2019','7','8',null,'De bons présages','7','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-290-08840-1','2014','7','8',null,'De bons présages','3','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('979-10-354-0250-1','2020','7','8',null,'Good Omens','10','430');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-07-041977-0','2002','9',null,null,'Les Dieux eux-mêmes','0','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-290-22726-8','2020','9',null,null,'Le cycle des robots (Tome 1) Les robots','3','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-290-22727-5','2020','9',null,null,'Le cycle des robots (Tome 1) Les robots','3','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-290-31125-7','2016','9',null,null,'Le cycle des robots (Tome 2) Un défilé de robots','3','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-290-18555-1','2018','9',null,null,'Le cycle des robots (Tome 2) Un défilé de robots','3','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-290-31902-4','2020','9',null,null,'Le cycle des robots (Tome 3) Les cavernes d_acier','3','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-290-18557-4','2001','9',null,null,'Le cycle des robots (Tome 3) Les cavernes d_acier','3','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-290-32794-4','2020','9',null,null,'Le cycle des robots (Tome 4) Face aux feux du soleil','3','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-290-18559-9','2018','9',null,null,'Le cycle des robots (Tome 4) Face aux feux du soleil','3','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-290-33275-5','2005','9',null,null,'Le cycle des robots (Tome 5) Les robots de l_aube','3','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-290-18561-2','2018','9',null,null,'Le cycle des robots (Tome 5) Les robots de l_aube','3','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-290-31116-5','2007','9',null,null,'Le cycle des robots (Tome 6) Les robots et l_empire','3','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-290-12137-1','2001','9',null,null,'Le cycle des robots (Tome 6) Les robots et l_empire','3','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-36762-843-1','2019','9',null,null,'Fondation : Le cycle de Fondation (Tome 1)','10','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-07-036053-6','2009','9',null,null,'Fondation : Le cycle de Fondation (Tome 1)','0','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-07-036055-0','2009','9',null,null,'Fondation et Empire : Le cycle de Fondation (Tome 2)','0','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-36762-844-8','2019','9',null,null,'Fondation et Empire : Le cycle de Fondation (Tome 2)','10','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-07-036052-9','2009','9',null,null,'Seconde Fondation: Le cycle de Fondation (Tome 3)','0','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-36762-845-5','2019','9',null,null,'Seconde Fondation: Le cycle de Fondation (Tome 3)','10','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-07-036063-5','2009','9',null,null,'Fondation foudroyée: Le cycle de Fondation (Tome 4)','0','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-36762-846-2','2009','9',null,null,'Fondation foudroyée: Le cycle de Fondation (Tome 4)','10','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-07-037966-8','2009','9',null,null,'Terre et Fondation: Le cycle de Fondation (Tome 5)','0','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('979-10-354-0531-1','2021','9',null,null,'Terre et Fondation: Le cycle de Fondation (Tome 5)','10','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-266-25698-8','2014','9',null,null,'Prélude à Fondation : Le cycle de Fondation (Tome 6)','1','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-266-15736-0','2014','9',null,null,'L_Aube de Fondation : Le cycle de Fondation (Tome 7)','1','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-0-00-811749-8','2016','9',null,null,'Foundation','11','430');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('0-553-29335-4','2004','9',null,null,'Foundation','12','430');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-1-84159-332-6','2015','9',null,null,'Foundation Trilogy','13','430');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-1-60796-273-1','2010','9',null,null,'Foundation Trilogy','14','430');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-3-453-52795-9','2012','9',null,null,'Die Foundation-Trilogie','15','440');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-3-453-19657-5','2001','9',null,null,'Die frühe Foundation-Trilogie','15','440');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-07-046361-9','2015','9',null,null,'Le cycle de Fondation Intégrale Tome 1','0','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-07-046362-6','2015','9',null,null,'Le cycle de Fondation Intégrale Tome 2','0','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('0007491514','2013','9',null,null,'I, Robot','16','430');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-253-18353-2','2016','10',null,null,'Silo','4','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-330-02678-3','2013','10',null,null,'Silo','17','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-87862-758-9','2014','10',null,null,'Silo','18','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-7578-5139-5','2015','11',null,null,'Dans l_abîme du temps','19','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-7578-8711-0','2020','11',null,null,'Dans l_abîme du temps','19','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-290-33290-9','2003','11',null,null,'Dagon','3','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('979-10-281-0407-8','2019','11',null,null,'Dagon','20','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-84172-169-8','2001','12',null,null,'Voici l_homme','21','10');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2266155007','2007','13',null,null,'La brèche','1','20');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-290-08232-4','2013','6',null,null,'Le Maître du Haut Château','3','20');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-253-08318-4','2017','14',null,null,'Le Samouraï virtuel','4','30');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-07-033691-3','2006','14',null,null,'Zodiac','0','30');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-266-29776-9','2020','15',null,null,'L_Abominable','1','40');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-221-21868-6','2019','15',null,null,'L_Abominable','2','40');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-0-575-09996-8','2010','15',null,null,'Hyperion','22','430');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-283-03325-8','2020','16',null,null,'Après le monde','23','60');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-283-03409-5','2020','16',null,null,'Après le monde','23','60');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-253-07214-1','1999','17',null,null,'Ciel brûlant de minuit','4','60');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-221-13014-8','2014','17',null,null,'Ciel brûlant de minuit','2','60');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-10-080712-3','2020','18',null,null,'C++','24','110');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-10-081634-7','2020','18',null,null,'C++','24','110');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-10-081430-5','2020','19',null,null,'Tout JavaScript','24','120');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-10-081896-9','2020','19',null,null,'Tout JavaScript','24','120');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-416-00018-8','2020','20',null,null,'Programmer en Java - Couvre Java 10 à 14','25','110');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-212-80165-1','2020','20',null,null,'Programmer en Java - Couvre Java 10 à 14','25','110');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-212-67903-8','2020','24',null,null,'Réussir son référencement web - Stratégie et techniques SEO','25','120');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-212-73061-6','2020','24',null,null,'Réussir son référencement web - Stratégie et techniques SEO','25','120');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-212-67973-1','2020','25',null,null,'Oh my code ! - Je crée mon premier site web','25','120');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-10-079068-5','2018','26',null,null,'Bases de données - Concepts, utilisation et développement','24','130');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-10-078672-5','2018','26',null,null,'Bases de données - Concepts, utilisation et développement','24','130');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-340-01782-5','2017','27',null,null,'Bases de données et systèmes d_information - Modèle relationnel, SQL, modélisation des données','27','130');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-07-507838-2','2017','21',null,null,'Minecraft, le guide création','0','160');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-07-513909-0','2020','22',null,null,'Minecraft - Le guide survie officiel','0','160');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-302-08362-2','2020','23',null,null,'The Legend of Zelda : Breath of the Wild - La création d_un prodige','26','160');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-36188-356-0','2020','28',null,null,'Le guide du lightworker. Tout part de toi ! - Avec 3 oracles à découper et + de 50 tests et exercices','28','310');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-85829-718-4','2012','29',null,null,'Oracle de Gaïa','29','310');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-8132-2310-4','2020','30',null,null,'L_Oracle du peuple végétal','30','310');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-8132-0494-3','2012','31',null,null,'La magie','30','330');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-8160-1386-3','2018','32',null,null,'Magie blanche - Grimoire des sorts et enchantements bénéfiques','31','330');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-290-33675-0','2004','33',null,null,'Le guide de la magie blanche - Recettes de sorcières','3','330');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-36736-070-6','2020','34',null,null,'La haute magie d_Isis - Eset et les mystères de l_Egypte antique','32','330');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('979-10-94653-35-7','2018','35',null,null,'L_Alchimie Zodiacale et l_Ascension Vibratoire','33','340');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-412-05414-7','2020','36',null,null,'Astrologie','34','340');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-290-02020-3','2010','37',null,null,'Le pouvoir du moment présent. Guide d_éveil spirituel','3','350');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-88953-373-2','2020','38','39',null,'Le 5e accord toltèque - La voie de la maîtrise de soi','35','350');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-07-287190-0','2019','0',null,null,'La Machine à explorer le temps','0','10');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-07-036766-5','2007','1',null,null,'Sur la route','0','580');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-266-23501-3','2014','2',null,null,'Le Talisman des territoires Intégrale','1','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2253151623','2007','2',null,null,'Shining L_Enfant lumière','4','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2709646048','2013','2',null,null,'Shining','5','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-253-12292-0','2008','2',null,null,'La Ligne Verte','4','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-253-15161-0','2006','2',null,null,'Rêves et Cauchemars','4','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-226-07009-5','1994','2',null,null,'Rêves et Cauchemars','6','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-88953-408-1','2020','38','39',null,'Le 5e accord toltèque - La voie de la maîtrise de soi','35','350');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-35185-243-9','2017','40',null,null,'Dossiers Warren - Les plus célèbres affaires des enquêteurs du paranormal Ed et Lorraine Warren','36','360');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-910196-60-7','2006','41',null,null,'La Bible satanique','37','360');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-38015-261-6','2021','42',null,null,'Le paranormal en question(s)','38','360');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-266-24065-9','2014','43',null,null,'L_âme du monde','1','380');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-253-06409-2','1993','44',null,null,'Le prophète','4','380');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('978-2-226-45033-3','2020','45','46',null,'Après Jésus - L_invention du christianisme','6','380');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-221-09818-8','2002','2',null,null,'Le Talisman des territoires Tome 1','2','50');
+Insert into HR.LIVRES (ISBN,ANNEE_PUBLICATION,ID_AUTEUR1,ID_AUTEUR2,ID_AUTEUR3,TITRE,ID_EDITEUR,ID_SOUS_DOMAINE) values ('2-221-09383-6','2002','2',null,null,'Le Talisman des territoires Tome 2','2','50');
 REM INSERTING into HR.LOCATIONS
 SET DEFINE OFF;
 Insert into HR.LOCATIONS (LOCATION_ID,STREET_ADDRESS,POSTAL_CODE,CITY,STATE_PROVINCE,COUNTRY_ID) values ('1000','1297 Via Cola di Rie','00989','Roma',null,'IT');
@@ -1103,81 +1175,11 @@ Insert into HR.SOUS_DOMAINES (ID_SOUS_DOMAINE,NOM_SOUS_DOMAINE,ID_DOMAINE) value
 Insert into HR.SOUS_DOMAINES (ID_SOUS_DOMAINE,NOM_SOUS_DOMAINE,ID_DOMAINE) values ('670','Jardins','600');
 Insert into HR.SOUS_DOMAINES (ID_SOUS_DOMAINE,NOM_SOUS_DOMAINE,ID_DOMAINE) values ('680','Nature et animaux','600');
 --------------------------------------------------------
---  DDL for Index LOC_COUNTRY_IX
---------------------------------------------------------
-
-  CREATE INDEX "HR"."LOC_COUNTRY_IX" ON "HR"."LOCATIONS" ("COUNTRY_ID")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
 --  DDL for Index PK_DOMAINE
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "HR"."PK_DOMAINE" ON "HR"."DOMAINES" ("ID_DOMAINE")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index JHIST_EMP_ID_ST_DATE_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "HR"."JHIST_EMP_ID_ST_DATE_PK" ON "HR"."JOB_HISTORY" ("EMPLOYEE_ID", "START_DATE")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index LOC_ID_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "HR"."LOC_ID_PK" ON "HR"."LOCATIONS" ("LOCATION_ID")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index JOB_ID_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "HR"."JOB_ID_PK" ON "HR"."JOBS" ("JOB_ID")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index DEPT_LOCATION_IX
---------------------------------------------------------
-
-  CREATE INDEX "HR"."DEPT_LOCATION_IX" ON "HR"."DEPARTMENTS" ("LOCATION_ID")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index EMP_DEPARTMENT_IX
---------------------------------------------------------
-
-  CREATE INDEX "HR"."EMP_DEPARTMENT_IX" ON "HR"."EMPLOYEES" ("DEPARTMENT_ID")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index EMP_JOB_IX
---------------------------------------------------------
-
-  CREATE INDEX "HR"."EMP_JOB_IX" ON "HR"."EMPLOYEES" ("JOB_ID")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
+  CREATE UNIQUE INDEX "HR"."PK_DOMAINE" ON "HR"."DOMAINES" ("ID_DOMAINE") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
@@ -1186,18 +1188,8 @@ Insert into HR.SOUS_DOMAINES (ID_SOUS_DOMAINE,NOM_SOUS_DOMAINE,ID_DOMAINE) value
 --  DDL for Index PK_EMPRUNTEURS
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "HR"."PK_EMPRUNTEURS" ON "HR"."EMPRUNTEURS" ("ID_EMPRUNTEUR")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index EMP_MANAGER_IX
---------------------------------------------------------
-
-  CREATE INDEX "HR"."EMP_MANAGER_IX" ON "HR"."EMPLOYEES" ("MANAGER_ID")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
+  CREATE UNIQUE INDEX "HR"."PK_EMPRUNTEURS" ON "HR"."EMPRUNTEURS" ("ID_EMPRUNTEUR") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
@@ -1206,38 +1198,8 @@ Insert into HR.SOUS_DOMAINES (ID_SOUS_DOMAINE,NOM_SOUS_DOMAINE,ID_DOMAINE) value
 --  DDL for Index PK_AUTEUR
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "HR"."PK_AUTEUR" ON "HR"."AUTEURS" ("ID_AUTEUR")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index DEPT_ID_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "HR"."DEPT_ID_PK" ON "HR"."DEPARTMENTS" ("DEPARTMENT_ID")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index LOC_STATE_PROVINCE_IX
---------------------------------------------------------
-
-  CREATE INDEX "HR"."LOC_STATE_PROVINCE_IX" ON "HR"."LOCATIONS" ("STATE_PROVINCE")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index JHIST_EMPLOYEE_IX
---------------------------------------------------------
-
-  CREATE INDEX "HR"."JHIST_EMPLOYEE_IX" ON "HR"."JOB_HISTORY" ("EMPLOYEE_ID")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
+  CREATE UNIQUE INDEX "HR"."PK_AUTEUR" ON "HR"."AUTEURS" ("ID_AUTEUR") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
@@ -1246,48 +1208,8 @@ Insert into HR.SOUS_DOMAINES (ID_SOUS_DOMAINE,NOM_SOUS_DOMAINE,ID_DOMAINE) value
 --  DDL for Index PK_EDITEUR
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "HR"."PK_EDITEUR" ON "HR"."EDITEURS" ("ID_EDITEUR")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index REG_ID_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "HR"."REG_ID_PK" ON "HR"."REGIONS" ("REGION_ID")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index LOC_CITY_IX
---------------------------------------------------------
-
-  CREATE INDEX "HR"."LOC_CITY_IX" ON "HR"."LOCATIONS" ("CITY")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index JHIST_DEPARTMENT_IX
---------------------------------------------------------
-
-  CREATE INDEX "HR"."JHIST_DEPARTMENT_IX" ON "HR"."JOB_HISTORY" ("DEPARTMENT_ID")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index EMP_EMP_ID_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "HR"."EMP_EMP_ID_PK" ON "HR"."EMPLOYEES" ("EMPLOYEE_ID")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
+  CREATE UNIQUE INDEX "HR"."PK_EDITEUR" ON "HR"."EDITEURS" ("ID_EDITEUR") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
@@ -1296,18 +1218,8 @@ Insert into HR.SOUS_DOMAINES (ID_SOUS_DOMAINE,NOM_SOUS_DOMAINE,ID_DOMAINE) value
 --  DDL for Index PK_SOUS_DOMAINE
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "HR"."PK_SOUS_DOMAINE" ON "HR"."SOUS_DOMAINES" ("ID_SOUS_DOMAINE")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index EMP_EMAIL_UK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "HR"."EMP_EMAIL_UK" ON "HR"."EMPLOYEES" ("EMAIL")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
+  CREATE UNIQUE INDEX "HR"."PK_SOUS_DOMAINE" ON "HR"."SOUS_DOMAINES" ("ID_SOUS_DOMAINE") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
@@ -1316,18 +1228,8 @@ Insert into HR.SOUS_DOMAINES (ID_SOUS_DOMAINE,NOM_SOUS_DOMAINE,ID_DOMAINE) value
 --  DDL for Index PK_LIVRES
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "HR"."PK_LIVRES" ON "HR"."LIVRES" ("ISBN")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index COUNTRY_C_ID_PK
---------------------------------------------------------
-
-  CREATE UNIQUE INDEX "HR"."COUNTRY_C_ID_PK" ON "HR"."COUNTRIES" ("COUNTRY_ID")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
+  CREATE UNIQUE INDEX "HR"."PK_LIVRES" ON "HR"."LIVRES" ("ISBN") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
@@ -1336,8 +1238,8 @@ Insert into HR.SOUS_DOMAINES (ID_SOUS_DOMAINE,NOM_SOUS_DOMAINE,ID_DOMAINE) value
 --  DDL for Index EMP_NAME_IX
 --------------------------------------------------------
 
-  CREATE INDEX "HR"."EMP_NAME_IX" ON "HR"."EMPLOYEES" ("LAST_NAME", "FIRST_NAME")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
+  CREATE INDEX "HR"."EMP_NAME_IX" ON "HR"."EMPLOYEES" ("LAST_NAME", "FIRST_NAME") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
@@ -1346,8 +1248,8 @@ Insert into HR.SOUS_DOMAINES (ID_SOUS_DOMAINE,NOM_SOUS_DOMAINE,ID_DOMAINE) value
 --  DDL for Index PK_EXEMPLAIRES_LIVRES
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "HR"."PK_EXEMPLAIRES_LIVRES" ON "HR"."EXEMPLAIRES_LIVRES" ("ISBN", "NUMERO_EXEMPLAIRE")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255
+  CREATE UNIQUE INDEX "HR"."PK_EXEMPLAIRES_LIVRES" ON "HR"."EXEMPLAIRES_LIVRES" ("ISBN", "NUMERO_EXEMPLAIRE") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
@@ -1356,18 +1258,8 @@ Insert into HR.SOUS_DOMAINES (ID_SOUS_DOMAINE,NOM_SOUS_DOMAINE,ID_DOMAINE) value
 --  DDL for Index PK_EMPRUNT
 --------------------------------------------------------
 
-  CREATE UNIQUE INDEX "HR"."PK_EMPRUNT" ON "HR"."EMPRUNTS" ("ID_EMPRUNT")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS" ;
---------------------------------------------------------
---  DDL for Index JHIST_JOB_IX
---------------------------------------------------------
-
-  CREATE INDEX "HR"."JHIST_JOB_IX" ON "HR"."JOB_HISTORY" ("JOB_ID")
-  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
+  CREATE UNIQUE INDEX "HR"."PK_EMPRUNT" ON "HR"."EMPRUNTS" ("ID_EMPRUNT") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
@@ -1376,7 +1268,7 @@ Insert into HR.SOUS_DOMAINES (ID_SOUS_DOMAINE,NOM_SOUS_DOMAINE,ID_DOMAINE) value
 --  DDL for Trigger EMPLOYEES_EMPLOYEE_ID_TRG
 --------------------------------------------------------
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "HR"."EMPLOYEES_EMPLOYEE_ID_TRG"
+  CREATE OR REPLACE EDITIONABLE TRIGGER "HR"."EMPLOYEES_EMPLOYEE_ID_TRG" 
 before insert on employees
 for each row
 begin
@@ -1388,101 +1280,110 @@ end;
 /
 ALTER TRIGGER "HR"."EMPLOYEES_EMPLOYEE_ID_TRG" ENABLE;
 --------------------------------------------------------
---  DDL for Trigger SECURE_EMPLOYEES
+--  DDL for Trigger INTERDICTION_EMPRUNT_SPIRITUALITE
 --------------------------------------------------------
 
-  CREATE OR REPLACE EDITIONABLE TRIGGER "HR"."SECURE_EMPLOYEES"
-  BEFORE INSERT OR UPDATE OR DELETE ON employees
+  CREATE OR REPLACE EDITIONABLE TRIGGER "HR"."INTERDICTION_EMPRUNT_SPIRITUALITE" 
+BEFORE INSERT ON emprunts
+FOR EACH ROW
+
+DECLARE
+s_domaine sous_domaines.id_domaine%type;
+domaine domaines.id_domaine%type;
+employe emprunteurs.id_employe%type;
+
 BEGIN
-  secure_dml;
-END secure_employees;
-
-/
-ALTER TRIGGER "HR"."SECURE_EMPLOYEES" DISABLE;
---------------------------------------------------------
---  DDL for Trigger UPDATE_JOB_HISTORY
---------------------------------------------------------
-
-  CREATE OR REPLACE EDITIONABLE TRIGGER "HR"."UPDATE_JOB_HISTORY"
-  AFTER UPDATE OF job_id, department_id ON employees
-  FOR EACH ROW
-BEGIN
-  add_job_history(:old.employee_id, :old.hire_date, sysdate,
-                  :old.job_id, :old.department_id);
+    SELECT id_sous_domaine INTO s_domaine FROM livres WHERE livres.isbn = :new.isbn;
+    SELECT id_domaine INTO domaine FROM sous_domaines WHERE s_domaine = sous_domaines.id_sous_domaine;
+    SELECT id_employe INTO employe FROM emprunteurs WHERE :new.id_emprunteur = id_emprunteur;
+    IF domaine = 300 AND employe IS NOT NULL THEN
+      raise_application_error(-20001, 'Les employés de la société Oracle ne peuvent pas emprunter de livres traitant de spiritualité.', True);
+    END IF;
 END;
-
 /
-ALTER TRIGGER "HR"."UPDATE_JOB_HISTORY" ENABLE;
+ALTER TRIGGER "HR"."INTERDICTION_EMPRUNT_SPIRITUALITE" ENABLE;
 --------------------------------------------------------
---  DDL for Procedure ADD_JOB_HISTORY
+--  DDL for Trigger LIMITE_DELAI_EMPRUNT
 --------------------------------------------------------
-set define off;
 
-  CREATE OR REPLACE EDITIONABLE PROCEDURE "HR"."ADD_JOB_HISTORY"
-  (  p_emp_id          job_history.employee_id%type
-   , p_start_date      job_history.start_date%type
-   , p_end_date        job_history.end_date%type
-   , p_job_id          job_history.job_id%type
-   , p_department_id   job_history.department_id%type
-   )
-IS
+  CREATE OR REPLACE EDITIONABLE TRIGGER "HR"."LIMITE_DELAI_EMPRUNT" 
+BEFORE INSERT ON emprunts
+FOR EACH ROW
+
+DECLARE
+date_lmt emprunts.date_retour%type;
+
+BEGIN         
+    FOR c IN (SELECT date_retour INTO date_lmt FROM emprunts WHERE :new.id_emprunteur = emprunts.id_emprunteur)
+
+    LOOP
+    IF c.date_retour <= sysdate  THEN
+        raise_application_error(-20003,'Emprunt impossible car le délai de retour est dépassé pour un emprunt en cours.');
+    END IF;
+    END LOOP;
+END;
+/
+ALTER TRIGGER "HR"."LIMITE_DELAI_EMPRUNT" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger LIMITE_EMPRUNT_EMPLOYE
+--------------------------------------------------------
+
+  CREATE OR REPLACE EDITIONABLE TRIGGER "HR"."LIMITE_EMPRUNT_EMPLOYE" 
+BEFORE INSERT ON emprunts
+FOR EACH ROW
+
+DECLARE
+
+employe emprunteurs.id_employe%type;
+nbre int;
+
 BEGIN
-  INSERT INTO job_history (employee_id, start_date, end_date,
-                           job_id, department_id)
-    VALUES(p_emp_id, p_start_date, p_end_date, p_job_id, p_department_id);
-END add_job_history;
 
+    SELECT id_employe INTO employe FROM emprunteurs e WHERE :new.id_emprunteur = e.id_emprunteur;
 
+    SELECT count(*) into nbre from emprunts e WHERE :new.id_emprunteur = e.id_emprunteur and e.date_retour is null;
+
+    IF employe is not null and nbre >= 3 THEN
+    raise_application_error(-20007, 'Les employés de la société Oracle ne peuvent pas emprunter plus de 3 livres', True);
+
+    END IF;
+
+END;
 /
+ALTER TRIGGER "HR"."LIMITE_EMPRUNT_EMPLOYE" ENABLE;
 --------------------------------------------------------
---  DDL for Procedure SECURE_DML
+--  DDL for Trigger LIMITE_EMPRUNT_EXEMPLAIRE_LIVRE
 --------------------------------------------------------
-set define off;
 
-  CREATE OR REPLACE EDITIONABLE PROCEDURE "HR"."SECURE_DML"
-IS
+  CREATE OR REPLACE EDITIONABLE TRIGGER "HR"."LIMITE_EMPRUNT_EXEMPLAIRE_LIVRE" 
+BEFORE INSERT ON emprunts
+FOR EACH ROW
+
+DECLARE
+nbre_livres int;
+
 BEGIN
-  IF TO_CHAR (SYSDATE, 'HH24:MI') NOT BETWEEN '08:00' AND '18:00'
-        OR TO_CHAR (SYSDATE, 'DY') IN ('SAT', 'SUN') THEN
-	RAISE_APPLICATION_ERROR (-20205,
-		'You may only make changes during normal office hours');
-  END IF;
-END secure_dml;
+    SELECT COUNT (*) INTO nbre_livres
+    FROM
+        (SELECT isbn FROM emprunts 
+        WHERE id_emprunteur = :new.id_emprunteur and isbn = :new.isbn);
+
+    IF (nbre_livres != 0) THEN
+            raise_application_error(-20001,'Livre déjà emprunté.');
+    END IF;
+END;
+/
+ALTER TRIGGER "HR"."LIMITE_EMPRUNT_EXEMPLAIRE_LIVRE" ENABLE;
 
 
 /
---------------------------------------------------------
---  Constraints for Table LOCATIONS
---------------------------------------------------------
-
-  ALTER TABLE "HR"."LOCATIONS" MODIFY ("CITY" CONSTRAINT "LOC_CITY_NN" NOT NULL ENABLE);
-  ALTER TABLE "HR"."LOCATIONS" ADD CONSTRAINT "LOC_ID_PK" PRIMARY KEY ("LOCATION_ID")
-  USING INDEX "HR"."LOC_ID_PK"  ENABLE;
---------------------------------------------------------
---  Constraints for Table COUNTRIES
---------------------------------------------------------
-
-  ALTER TABLE "HR"."COUNTRIES" MODIFY ("COUNTRY_ID" CONSTRAINT "COUNTRY_ID_NN" NOT NULL ENABLE);
-  ALTER TABLE "HR"."COUNTRIES" ADD CONSTRAINT "COUNTRY_C_ID_PK" PRIMARY KEY ("COUNTRY_ID")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
-  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
-  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
-  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
-  TABLESPACE "USERS"  ENABLE;
---------------------------------------------------------
---  Constraints for Table DEPARTMENTS
---------------------------------------------------------
-
-  ALTER TABLE "HR"."DEPARTMENTS" MODIFY ("DEPARTMENT_NAME" CONSTRAINT "DEPT_NAME_NN" NOT NULL ENABLE);
-  ALTER TABLE "HR"."DEPARTMENTS" ADD CONSTRAINT "DEPT_ID_PK" PRIMARY KEY ("DEPARTMENT_ID")
-  USING INDEX "HR"."DEPT_ID_PK"  ENABLE;
 --------------------------------------------------------
 --  Constraints for Table EDITEURS
 --------------------------------------------------------
 
   ALTER TABLE "HR"."EDITEURS" MODIFY ("NOM_EDITEUR" NOT NULL ENABLE);
   ALTER TABLE "HR"."EDITEURS" ADD CONSTRAINT "PK_EDITEUR" PRIMARY KEY ("ID_EDITEUR")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
@@ -1493,7 +1394,7 @@ END secure_dml;
 
   ALTER TABLE "HR"."DOMAINES" MODIFY ("NOM_DOMAINE" NOT NULL ENABLE);
   ALTER TABLE "HR"."DOMAINES" ADD CONSTRAINT "PK_DOMAINE" PRIMARY KEY ("ID_DOMAINE")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
@@ -1505,22 +1406,11 @@ END secure_dml;
   ALTER TABLE "HR"."EMPRUNTEURS" MODIFY ("NOM_EMPRUNTEUR" NOT NULL ENABLE);
   ALTER TABLE "HR"."EMPRUNTEURS" MODIFY ("PRENOM_EMPRUNTEUR" NOT NULL ENABLE);
   ALTER TABLE "HR"."EMPRUNTEURS" ADD CONSTRAINT "PK_EMPRUNTEURS" PRIMARY KEY ("ID_EMPRUNTEUR")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
---------------------------------------------------------
---  Constraints for Table JOB_HISTORY
---------------------------------------------------------
-
-  ALTER TABLE "HR"."JOB_HISTORY" MODIFY ("EMPLOYEE_ID" CONSTRAINT "JHIST_EMPLOYEE_NN" NOT NULL ENABLE);
-  ALTER TABLE "HR"."JOB_HISTORY" MODIFY ("START_DATE" CONSTRAINT "JHIST_START_DATE_NN" NOT NULL ENABLE);
-  ALTER TABLE "HR"."JOB_HISTORY" MODIFY ("END_DATE" CONSTRAINT "JHIST_END_DATE_NN" NOT NULL ENABLE);
-  ALTER TABLE "HR"."JOB_HISTORY" MODIFY ("JOB_ID" CONSTRAINT "JHIST_JOB_NN" NOT NULL ENABLE);
-  ALTER TABLE "HR"."JOB_HISTORY" ADD CONSTRAINT "JHIST_DATE_INTERVAL" CHECK (end_date > start_date) ENABLE;
-  ALTER TABLE "HR"."JOB_HISTORY" ADD CONSTRAINT "JHIST_EMP_ID_ST_DATE_PK" PRIMARY KEY ("EMPLOYEE_ID", "START_DATE")
-  USING INDEX "HR"."JHIST_EMP_ID_ST_DATE_PK"  ENABLE;
 --------------------------------------------------------
 --  Constraints for Table LIVRES
 --------------------------------------------------------
@@ -1531,7 +1421,7 @@ END secure_dml;
   ALTER TABLE "HR"."LIVRES" MODIFY ("ID_EDITEUR" NOT NULL ENABLE);
   ALTER TABLE "HR"."LIVRES" MODIFY ("ID_SOUS_DOMAINE" NOT NULL ENABLE);
   ALTER TABLE "HR"."LIVRES" ADD CONSTRAINT "PK_LIVRES" PRIMARY KEY ("ISBN")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
@@ -1545,7 +1435,7 @@ END secure_dml;
   ALTER TABLE "HR"."EMPRUNTS" MODIFY ("ISBN" NOT NULL ENABLE);
   ALTER TABLE "HR"."EMPRUNTS" MODIFY ("NUMERO_EXEMPLAIRE" NOT NULL ENABLE);
   ALTER TABLE "HR"."EMPRUNTS" ADD CONSTRAINT "PK_EMPRUNT" PRIMARY KEY ("ID_EMPRUNT")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
@@ -1555,7 +1445,7 @@ END secure_dml;
 --------------------------------------------------------
 
   ALTER TABLE "HR"."EXEMPLAIRES_LIVRES" ADD CONSTRAINT "PK_EXEMPLAIRES_LIVRES" PRIMARY KEY ("ISBN", "NUMERO_EXEMPLAIRE")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
@@ -1570,7 +1460,7 @@ END secure_dml;
   ALTER TABLE "HR"."EMPLOYEES" MODIFY ("JOB_ID" CONSTRAINT "EMP_JOB_NN" NOT NULL ENABLE);
   ALTER TABLE "HR"."EMPLOYEES" ADD CONSTRAINT "EMP_SALARY_MIN" CHECK (salary > 0) ENABLE;
   ALTER TABLE "HR"."EMPLOYEES" ADD CONSTRAINT "EMP_EMAIL_UK" UNIQUE ("EMAIL")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
@@ -1578,31 +1468,17 @@ END secure_dml;
   ALTER TABLE "HR"."EMPLOYEES" ADD CONSTRAINT "EMP_EMP_ID_PK" PRIMARY KEY ("EMPLOYEE_ID")
   USING INDEX "HR"."EMP_EMP_ID_PK"  ENABLE;
 --------------------------------------------------------
---  Constraints for Table JOBS
---------------------------------------------------------
-
-  ALTER TABLE "HR"."JOBS" MODIFY ("JOB_TITLE" CONSTRAINT "JOB_TITLE_NN" NOT NULL ENABLE);
-  ALTER TABLE "HR"."JOBS" ADD CONSTRAINT "JOB_ID_PK" PRIMARY KEY ("JOB_ID")
-  USING INDEX "HR"."JOB_ID_PK"  ENABLE;
---------------------------------------------------------
 --  Constraints for Table AUTEURS
 --------------------------------------------------------
 
   ALTER TABLE "HR"."AUTEURS" MODIFY ("NOM_AUTEUR" NOT NULL ENABLE);
   ALTER TABLE "HR"."AUTEURS" MODIFY ("PRENOM_AUTEUR" NOT NULL ENABLE);
   ALTER TABLE "HR"."AUTEURS" ADD CONSTRAINT "PK_AUTEUR" PRIMARY KEY ("ID_AUTEUR")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
---------------------------------------------------------
---  Constraints for Table REGIONS
---------------------------------------------------------
-
-  ALTER TABLE "HR"."REGIONS" MODIFY ("REGION_ID" CONSTRAINT "REGION_ID_NN" NOT NULL ENABLE);
-  ALTER TABLE "HR"."REGIONS" ADD CONSTRAINT "REG_ID_PK" PRIMARY KEY ("REGION_ID")
-  USING INDEX "HR"."REG_ID_PK"  ENABLE;
 --------------------------------------------------------
 --  Constraints for Table SOUS_DOMAINES
 --------------------------------------------------------
@@ -1610,25 +1486,11 @@ END secure_dml;
   ALTER TABLE "HR"."SOUS_DOMAINES" MODIFY ("NOM_SOUS_DOMAINE" NOT NULL ENABLE);
   ALTER TABLE "HR"."SOUS_DOMAINES" MODIFY ("ID_DOMAINE" NOT NULL ENABLE);
   ALTER TABLE "HR"."SOUS_DOMAINES" ADD CONSTRAINT "PK_SOUS_DOMAINE" PRIMARY KEY ("ID_SOUS_DOMAINE")
-  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS"  ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table COUNTRIES
---------------------------------------------------------
-
-  ALTER TABLE "HR"."COUNTRIES" ADD CONSTRAINT "COUNTR_REG_FK" FOREIGN KEY ("REGION_ID")
-	  REFERENCES "HR"."REGIONS" ("REGION_ID") ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table DEPARTMENTS
---------------------------------------------------------
-
-  ALTER TABLE "HR"."DEPARTMENTS" ADD CONSTRAINT "DEPT_LOC_FK" FOREIGN KEY ("LOCATION_ID")
-	  REFERENCES "HR"."LOCATIONS" ("LOCATION_ID") ENABLE;
-  ALTER TABLE "HR"."DEPARTMENTS" ADD CONSTRAINT "DEPT_MGR_FK" FOREIGN KEY ("MANAGER_ID")
-	  REFERENCES "HR"."EMPLOYEES" ("EMPLOYEE_ID") ENABLE;
 --------------------------------------------------------
 --  Ref Constraints for Table EMPLOYEES
 --------------------------------------------------------
@@ -1653,16 +1515,6 @@ END secure_dml;
 	  REFERENCES "HR"."EMPRUNTEURS" ("ID_EMPRUNTEUR") ENABLE;
   ALTER TABLE "HR"."EMPRUNTS" ADD CONSTRAINT "FK_EXEMPLAIRES_LIVRES1" FOREIGN KEY ("ISBN", "NUMERO_EXEMPLAIRE")
 	  REFERENCES "HR"."EXEMPLAIRES_LIVRES" ("ISBN", "NUMERO_EXEMPLAIRE") ENABLE;
---------------------------------------------------------
---  Ref Constraints for Table JOB_HISTORY
---------------------------------------------------------
-
-  ALTER TABLE "HR"."JOB_HISTORY" ADD CONSTRAINT "JHIST_JOB_FK" FOREIGN KEY ("JOB_ID")
-	  REFERENCES "HR"."JOBS" ("JOB_ID") ENABLE;
-  ALTER TABLE "HR"."JOB_HISTORY" ADD CONSTRAINT "JHIST_EMP_FK" FOREIGN KEY ("EMPLOYEE_ID")
-	  REFERENCES "HR"."EMPLOYEES" ("EMPLOYEE_ID") ENABLE;
-  ALTER TABLE "HR"."JOB_HISTORY" ADD CONSTRAINT "JHIST_DEPT_FK" FOREIGN KEY ("DEPARTMENT_ID")
-	  REFERENCES "HR"."DEPARTMENTS" ("DEPARTMENT_ID") ENABLE;
 --------------------------------------------------------
 --  Ref Constraints for Table LIVRES
 --------------------------------------------------------

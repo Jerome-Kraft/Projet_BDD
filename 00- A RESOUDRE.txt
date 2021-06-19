@@ -1,2 +1,0 @@
-Table emprunteurs :
-	- fk id_employe vers employee_id : possible de créer un emprunteur qui ne possède pas d'id_employee (donc qui n'appartient pas à l'entreprise Oracle) ?

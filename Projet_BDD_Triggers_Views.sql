@@ -71,88 +71,57 @@ BEGIN
     END LOOP;
 END;
 
-/* Vues : emprunts en retard */
+/* Vue listant les emprunts en retard */
 CREATE OR REPLACE VIEW retard_emprunt
 AS SELECT t.*, e.nom_emprunteur, e.prenom_emprunteur
 FROM emprunteurs e, emprunts t
-WHERE date_retour < SYSDATE AND t.id_emprunteur = e.id_emprunteur;
+WHERE date_retour is null AND sysdate > date_emprunt+30 AND t.id_emprunteur = e.id_emprunteur;
 
-/* Vues : liste de tous les emprunts en cours (données essentielles de chaque livre,
-données essentielles de chaque emprunteur, date d'emprunt, date de retour prévue) */
+/* Vue listant tous les emprunts en cours (données essentielles de chaque livre, données essentielles de chaque emprunteur, date d'emprunt, date de retour prévue) */
 CREATE OR REPLACE VIEW liste_emprunts_en_cours
-AS SELECT e.id_emprunteur, e.nom_emprunteur, e.prenom_emprunteur, t.id_emprunt, t.date_emprunt, l.titre, a.nom_auteur, a.prenom_auteur, l.annee_publication, l.id_sous_domaine, l.isbn
-FROM livres l, auteurs a, edition_livre el, emprunteurs e, emprunts t
-WHERE t.date_retour > null AND l.id_livre = t.id_livre AND l.id_auteur = a.id_auteur AND l.isbn = el.isbn
-AND t.id_emprunteur = e.id_emprunteur ;
+AS SELECT e.id_emprunteur, e.nom_emprunteur, e.prenom_emprunteur, t.id_emprunt, t.date_emprunt, l.titre, a.nom_auteur, a.prenom_auteur, l.annee_publication, l.id_sous_domaine, l.isbn, ed.nom_editeur, t.numero_exemplaire
+FROM livres l, auteurs a, editeurs ed, emprunteurs e, emprunts t
+WHERE t.date_retour is null AND l.isbn = t.isbn AND l.id_auteur1 = a.id_auteur AND l.id_editeur = ed.id_editeur AND e.id_emprunteur = t.id_emprunteur;
 
-/* Vue (pour l'administrateur') qui affiche les emprunts en cours*/
-CREATE VIEW emprunt_en_cours
-AS SELECT e.id_emprunt, e.date_emprunt, e.id_emprunteur, e.ISBN, e.Num_exemplaire
-FROM emprunts e
-WHERE  e.date_retour is null;
+/* Vue (pour l'administrateur) affichant tout les emprunts */
+CREATE OR REPLACE VIEW liste_emprunts
+AS SELECT *
+FROM emprunts;
 
-ALTER VIEW emprunt_en_cours COMPILE;
-
-/* Vue (pour les utilisateurs invités ou enregistrés) qui affiche l'auteur (nom et prénom), le titre du livre, le nombre d'exemplaires,
- l'année de publication, l'éditeur et nom du domaine et sous-domaine */
-CREATE VIEW consultation
-AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, l.nombre_exemplaire, ed.annee_publication, ed.editeur,
-d.nom_domaine, sd.nom_sous_domaine
-FROM auteurs a, livres l, edition_livre ed, domaines d, sous_domaines sd
-WHERE l.id_auteur = a.id_auteur AND l.isbn = ed.isbn AND l.id_domaine = d.id_domaine AND l.id_sous_domaine = sd.id_sous_domaine;
-
-ALTER VIEW consultation COMPILE;
-
-/* Vue (pour les employés Oracle) qui affiche l'auteur (nom et prénom), le titre du livre, le nombre d'exemplaires,
- l'année de publication, l'éditeur et nom du domaine et sous-domaine, mais n'affiche pas les ouvrages du domaine 3 */
-CREATE VIEW consultation_oracle_enregistre
-AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, l.nombre_exemplaire, ed.annee_publication, ed.editeur,
-d.nom_domaine, sd.nom_sous_domaine
-FROM auteurs a, livres l, edition_livre ed, domaines d, sous_domaines sd
-WHERE l.id_auteur = a.id_auteur AND l.isbn = ed.isbn AND l.id_domaine = d.id_domaine AND l.id_sous_domaine = sd.id_sous_domaine
-AND l.id_domaine != 3;
-
-ALTER VIEW consultation_oracle_enregistre COMPILE;
-
-/* Vue (pour l'administrateur') qui affiche l'historique d'emprunt  passé pour un où plusieurs emprunteur*/
-CREATE VIEW historique_emprunt_passé
-AS SELECT e.id_emprunt, e.date_emprunt, e.date_retour, e.id_emprunteur, e.ISBN, e.Num_exemplaire
+/* Vue (pour l'administrateur) affichant l'historique des emprunts passés pour un ou plusieurs emprunteurs */
+CREATE OR REPLACE VIEW historique_emprunt_passe
+AS SELECT e.id_emprunt, e.date_emprunt, e.date_retour, e.id_emprunteur, e.isbn, e.numero_exemplaire
 FROM emprunts e
 WHERE  e.date_retour is not null;
 
-ALTER VIEW historique_emprunt_passé COMPILE;
-
-/* Vue (pour l'administrateur') qui affiche l'historique d'emprunt  passé pour un où plusieurs emprunteur*/
-CREATE VIEW emprunt_delais_passe
-AS SELECT e.id_emprunt, e.date_emprunt, e.id_emprunteur, e.ISBN, e.Num_exemplaire
-FROM emprunts e
-Where  e.date_retour is null and (sysdate > e.date_emprunt+30);
-
-ALTER VIEW emprunt_delais_passe COMPILE;
-
-
+/* Vue (pour l'administrateur) affichant les différents noms de domaines */
 CREATE OR REPLACE VIEW detail_domaines
-AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, d.nom_domaine
-FROM livres l, auteurs a, domaines d
-WHERE :new.id_domaine = d.id_domaine
-ORDER BY d.id_domaine;
+AS SELECT *
+FROM domaines;
 
+/* Vue (pour l'administrateur) affichant les différents noms de sous-domaines */
+CREATE OR REPLACE VIEW detail_sous_domaines
+AS SELECT *
+FROM sous_domaines;
+
+/* Vue (pour l'administrateur) affichant les différents éditeurs */
 CREATE OR REPLACE VIEW detail_editeurs
-AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, el.editeur
-FROM livres l, auteurs a, editeurs el
-WHERE :new.isbn = l.isbn
-ORDER BY l.isbn;
+AS SELECT *
+FROM editeurs;
 
+/* Vue (pour l'administrateur) affichant les différents auteurs */
 CREATE OR REPLACE VIEW detail_auteur
-AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, sd.nom_sous_domaine, d.nom_domaine
-FROM livres l, auteurs a, sous_domaines sd, domaines d
-WHERE :new.id_auteur = a.id_auteur
-ORDER BY a.id_auteur;
+AS SELECT *
+FROM auteurs;
 
-CREATE OR REPLACE VIEW detail_nombres_exemplaires
-AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, sd.nom_sous_domaine, d.nom_domaine
-FROM livres l, auteurs a, editeurs el
-WHERE :new.id_auteur = a.id_auteur
-ORDER BY a.id_auteur;
+/* Vue (pour les utilisateurs invités ou enregistrés) affichant l'auteur (nom et prénom), le titre du livre, l'année de publication, l'éditeur, les noms du domaine et du sous-domaine */
+CREATE OR REPLACE VIEW consultation
+AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, l.annee_publication, ed.nom_editeur, d.nom_domaine, sd.nom_sous_domaine
+FROM auteurs a, livres l, editeurs ed, domaines d, sous_domaines sd
+WHERE l.id_auteur1 = a.id_auteur AND l.id_editeur = ed.id_editeur AND sd.id_domaine = d.id_domaine AND l.id_sous_domaine = sd.id_sous_domaine;
 
-
+/* Vue (pour les employés Oracle) affichant l'auteur (nom et prénom), le titre du livre, l'année de publication, l'éditeur et nom du domaine et sous-domaine, mais n'affiche pas les ouvrages du domaine 300 (Spiritualité) */
+CREATE OR REPLACE VIEW consultation_oracle_enregistre
+AS SELECT a.nom_auteur, a.prenom_auteur, l.titre, l.annee_publication, ed.nom_editeur, d.nom_domaine, sd.nom_sous_domaine
+FROM auteurs a, livres l, editeurs ed, domaines d, sous_domaines sd
+WHERE l.id_auteur1 = a.id_auteur AND l.id_editeur = ed.id_editeur AND sd.id_domaine = d.id_domaine AND l.id_sous_domaine = sd.id_sous_domaine AND (sd.id_domaine != 300);

@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="Projet_BDD_export" id="1F3C2DF3-13BE-8305-AA75-889343B01E39" version="3.5">
+<createdBy>oracle</createdBy>
+<createdTime>2021-06-19 12:05:45 UTC</createdTime>
+<ownerDesignName>Projet_BDD_export</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>1F3C2DF3-13BE-8305-AA75-889343B01E39</designId>
+<usedDesignStorageDescriptors>
+<designDescr class="oracle.dbtools.crest.model.design.Design$DesignStorageDesc" id="6C49FB9B-FE0E-0B2E-D606-5852FD112D94">
+<designStoragePath>/</designStoragePath>
+</designDescr>
+</usedDesignStorageDescriptors>
+</OSDM_Design>

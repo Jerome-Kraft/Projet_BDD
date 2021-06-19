@@ -97,12 +97,10 @@ grant all on sous_domaines to administrateur;
 /* Autorise les utilisateurs "invite" (sans compte) à uniquement consulter la base */
 grant select on consultation to invite;
 
-/* Autorise les utilisateurs "enregistre" (avec compte) à consulter la base, à s'enregistrer (altérer la table
- "emprunteurs") et à emprunter (altérer la table "emprunts") */
+/* Autorise les utilisateurs "enregistre" (avec compte) à consulter la base et à emprunter (altérer la table "emprunts") */
 grant select on consultation to enregistre;
 grant update on emprunteurs, emprunts to enregistre;
 
-/* Autorise les utilisateurs "oracle_enregistre" (employés Oracle avec compte) à consulter la base, à s'enregistrer
-(altérer la table "emprunteurs") et à emprunter (altérer la table "emprunts") */
+/* Autorise les utilisateurs "oracle_enregistre" (employés Oracle avec compte) à consulter la base et à emprunter (altérer la table "emprunts") */
 grant select on consultation_oracle_enregistre to oracle_enregistre;
 grant update on emprunteurs, emprunts to oracle_enregistre;
