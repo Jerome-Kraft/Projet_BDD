@@ -166,7 +166,7 @@ insert into livres values (978-2-07-036766-5, 2007, 1, null, null, 'Sur la route
 insert into livres values (978-2-266-23501-3, 2014, 2, null, null, 'Le Talisman des territoires Intégrale', 1, 050);
 insert into livres values (2-221-09818-8, 2002, 2, null, null, 'Le Talisman des territoires Tome 1', 2, 050);
 insert into livres values (2-221-09383-6, 2002, 2, null, null, 'Le Talisman des territoires Tome 2', 2, 050);
-insert into livres values (‎978-2253151623, 2007, 2, null, null, 'Shining L_Enfant Lumière', 4, 050);
+insert into livres values (‎978-2253151623, 2007, 2, null, null, 'Shining L_Enfant lumière', 4, 050);
 insert into livres values (‎978-2709646048, 2013, 2, null, null, 'Shining', 5, 050);
 insert into livres values (978-2-253-12292-0, 2008, 2, null, null, 'La Ligne Verte', 4, 050);
 insert into livres values (2-253-15161-0, 2006, 2, null, null, 'Rêves et Cauchemars', 4, 050);
@@ -183,7 +183,7 @@ insert into livres values (978-2-917157-19-0, 2012, 5, null, null, 'Aucun souven
 insert into livres values (978-2-290-03366-1, 2015, 6, null, null, 'Brèche dans l_espace', 3, 050);
 insert into livres values (2-253-05297-3, 1990, 6, null, null, 'Brèche dans l_espace', 4, 050);
 insert into livres values (2-264-02881-5, 1999, 6, null, null, 'Ubik', 9, 050);
-insert into livres values (2-221-09462-X, 2001, 6, null, null, 'Ubik', 2, 050);
+insert into livres values (2-221-09462-1, 2001, 6, null, null, 'Ubik', 2, 050);
 insert into livres values (978-2-264-07495-9, 2019, 6, null, null, 'Ubik', 9, 050);
 insert into livres values (979-10-307-0282-8, 2019, 7, 8, null, 'De bons présages', 7, 050);
 insert into livres values (978-2-290-08840-1, 2014, 7, 8, null, 'De bons présages', 3, 050);
@@ -252,7 +252,7 @@ insert into livres values (978-2-212-73061-6, 2020, 24, null, null, 'Réussir so
 insert into livres values (978-2-212-67973-1, 2020, 25, null, null, 'Oh my code ! - Je crée mon premier site web', 25, 120);
 insert into livres values (978-2-10-079068-5, 2018, 26, null, null, 'Bases de données - Concepts, utilisation et développement', 24, 130);
 insert into livres values (978-2-10-078672-5, 2018, 26, null, null, 'Bases de données - Concepts, utilisation et développement', 24, 130);
-insert into livres values (978-2-340-01782-5, 2017, 27, null, null, 'Bases de données et systèmes d_information - Modèle relationnel, SQL, optimisation des requêtes, transactions, modélisation des données', 27, 130);
+insert into livres values (978-2-340-01782-5, 2017, 27, null, null, 'Bases de données et systèmes d_information - Modèle relationnel, SQL, modélisation des données', 27, 130);
 insert into livres values (978-2-07-507838-2, 2017, 21, null, null, 'Minecraft, le guide création', 0, 160);
 insert into livres values (978-2-07-513909-0, 2020, 22, null, null, 'Minecraft - Le guide survie officiel', 0, 160);
 insert into livres values (978-2-302-08362-2, 2020, 23, null, null, 'The Legend of Zelda : Breath of the Wild - La création d_un prodige', 26, 160);
@@ -268,7 +268,7 @@ insert into livres values (978-2-412-05414-7, 2020, 36, null, null, 'Astrologie'
 insert into livres values (978-2-290-02020-3, 2010, 37, null, null, 'Le pouvoir du moment présent. Guide d_éveil spirituel', 3, 350);
 insert into livres values (978-2-88953-373-2, 2020, 38, 39, null, 'Le 5e accord toltèque - La voie de la maîtrise de soi', 35, 350);
 insert into livres values (978-2-88953-408-1, 2020, 38, 39, null, 'Le 5e accord toltèque - La voie de la maîtrise de soi', 35, 350);
-insert into livres values (978-2-35185-243-9, 2017, 40, null, null, 'Les Dossiers Warren - Annabelle, Conjuring, Enfield, Le Loup-Garou de Londres... Les plus célèbres affaires des enquêteurs du paranormal Ed et Lorraine Warren', 36, 360);
+insert into livres values (978-2-35185-243-9, 2017, 40, null, null, 'Dossiers Warren - Les plus célèbres affaires des enquêteurs du paranormal Ed et Lorraine Warren', 36, 360);
 insert into livres values (2-910196-60-7, 2006, 41, null, null, 'La Bible satanique', 37, 360);
 insert into livres values (978-2-38015-261-6, 2021, 42, null, null, 'Le paranormal en question(s)', 38, 360);
 insert into livres values (978-2-266-24065-9, 2014, 43, null, null, 'L_âme du monde', 1, 380);
@@ -304,7 +304,7 @@ insert into exemplaires_livres values (978-2-917157-19-0, 1);
 insert into exemplaires_livres values (978-2-290-03366-1, 1);
 insert into exemplaires_livres values (2-253-05297-3, 1);
 insert into exemplaires_livres values (2-264-02881-5, 1);
-insert into exemplaires_livres values (2-221-09462-X, 1);
+insert into exemplaires_livres values (2-221-09462-1, 1);
 insert into exemplaires_livres values (978-2-264-07495-9, 1);
 insert into exemplaires_livres values (979-10-307-0282-8, 1);
 insert into exemplaires_livres values (978-2-290-08840-1, 1);
