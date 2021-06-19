@@ -75,7 +75,7 @@ create table emprunts(
   numero_exemplaire int not null,
   constraint pk_emprunt primary key (id_emprunt),
   constraint fk_emprunteur foreign key (id_emprunteur) references emprunteurs(id_emprunteur),
-  constraint fk_exemplaires_livres1 foreign key (isbn, numero_exemplaire) references exemplaires_livres(isbn, numero_exemplaire),
+  constraint fk_exemplaires_livres1 foreign key (isbn, numero_exemplaire) references exemplaires_livres(isbn, numero_exemplaire)
 );
 
 /* Création des utilisateurs (dans la base system) : */
