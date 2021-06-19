@@ -1,11 +1,11 @@
-drop table if exists domaines;
-drop table if exists sous_domaines;
-drop table if exists auteurs;
-drop table if exists editeurs;
-drop table if exists livres;
-drop table if exists exemplaires_livre;
-drop table if exists emprunteurs;
-drop table if exists emprunts;
+drop table emprunts;
+drop table emprunteurs;
+drop table exemplaires_livre;
+drop table livres;
+drop table editeurs;
+drop table auteurs;
+drop table sous_domaines;
+drop table domaines;
 
 create table domaines(
   id_domaine int,
