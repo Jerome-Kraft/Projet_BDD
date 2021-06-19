@@ -9,8 +9,10 @@ nbre int;
 
 BEGIN
     SELECT id_employe INTO employe FROM emprunteurs e WHERE :new.id_emprunteur = e.id_emprunteur;
-    IF employe IS NOT NULL AND employe > 3 THEN
-      raise_application_error(-20007, 'Les employés de la société Oracle ne peuvent pas emprunter plus de 3 livres.', True);
+    SELECT COUNT(*) INTO nbre FROM emprunts e WHERE :new.id_emprunteur = e.id_emprunteur AND e.date_retour IS NULL;
+
+    IF employe IS NOT NULL AND nbre >= 3 THEN
+    raise_application_error(-20007, 'Les employés de la société Oracle ne peuvent pas emprunter plus de 3 livres.', True);
     END IF;
 END;
 
@@ -62,13 +64,11 @@ date_lmt emprunts.date_retour%type;
 
 BEGIN         
     FOR c IN (SELECT date_retour INTO date_lmt FROM emprunts WHERE :new.id_emprunteur = emprunts.id_emprunteur)
-    
     LOOP
     IF c.date_retour <= sysdate  THEN
         raise_application_error(-20003,'Emprunt impossible car le délai de retour est dépassé pour un emprunt en cours.');
     END IF;
     END LOOP;
-
 END;
 
 /* Vues : emprunts en retard */
@@ -80,10 +80,9 @@ WHERE date_retour < SYSDATE AND t.id_emprunteur = e.id_emprunteur;
 /* Vues : liste de tous les emprunts en cours (données essentielles de chaque livre,
 données essentielles de chaque emprunteur, date d'emprunt, date de retour prévue) */
 CREATE OR REPLACE VIEW liste_emprunts_en_cours
-AS SELECT e.id_emprunteur, e.nom_emprunteur, e.prenom_emprunteur, t.id_emprunt, t.date_emprunt, t.date_retour, l.titre, a.nom_auteur, 
-a.prenom_auteur, el.annee_publication, l.id_sous_domaine, l.id_domaine
+AS SELECT e.id_emprunteur, e.nom_emprunteur, e.prenom_emprunteur, t.id_emprunt, t.date_emprunt, l.titre, a.nom_auteur, a.prenom_auteur, l.annee_publication, l.id_sous_domaine, l.isbn
 FROM livres l, auteurs a, edition_livre el, emprunteurs e, emprunts t
-WHERE t.date_retour > sysdate AND l.id_livre = t.id_livre AND l.id_auteur = a.id_auteur AND l.isbn = el.isbn
+WHERE t.date_retour > null AND l.id_livre = t.id_livre AND l.id_auteur = a.id_auteur AND l.isbn = el.isbn
 AND t.id_emprunteur = e.id_emprunteur ;
 
 /* Vue (pour l'administrateur') qui affiche les emprunts en cours*/
