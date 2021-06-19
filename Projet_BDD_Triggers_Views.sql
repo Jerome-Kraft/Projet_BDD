@@ -1,5 +1,3 @@
-/* Eléments vérifiés, testés, retestés, rererereretestés */  
-
 /* Limiter le nombre de livres empruntés à 3 pour chaque employé Oracle + Employés Oracle comme emprunteurs : */
 CREATE OR REPLACE TRIGGER limite_emprunt_employe
 BEFORE INSERT ON emprunts
@@ -11,8 +9,8 @@ nbre int;
 
 BEGIN
     SELECT id_employe INTO employe FROM emprunteurs e WHERE :new.id_emprunteur = e.id_emprunteur;
-    SELECT nombre_emprunt INTO nbre FROM emprunteurs e WHERE :new.id_emprunteur = e.id_emprunteur;
-    IF employe IS NOT NULL AND nbre > 3 THEN
+    /*SELECT nombre_emprunt INTO nbre FROM emprunteurs e WHERE :new.id_emprunteur = e.id_emprunteur; */
+    IF employe IS NOT NULL AND employe > 3 /*nbre > 3*/ THEN
       raise_application_error(-20007, 'Les employés de la société Oracle ne peuvent pas emprunter plus de 3 livres.', True);
     END IF;
 END;
@@ -60,7 +58,7 @@ BEGIN
     SELECT id_sous_domaine INTO s_domaine FROM livres WHERE livres.isbn = :new.isbn;
     SELECT id_domaine INTO domaine FROM sous_domaines WHERE s_domaine = sous_domaines.id_sous_domaine;
     SELECT id_employe INTO employe FROM emprunteurs WHERE :new.id_emprunteur = id_emprunteur;
-    IF domaine = 3 AND employe IS NOT NULL THEN
+    IF domaine = 300 AND employe IS NOT NULL THEN
       raise_application_error(-20001, 'Les employés de la société Oracle ne peuvent pas emprunter de livres traitant de spiritualité.', True);
     END IF;
 END;
