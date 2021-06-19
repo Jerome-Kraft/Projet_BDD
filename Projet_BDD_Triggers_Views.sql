@@ -9,19 +9,11 @@ nbre int;
 
 BEGIN
     SELECT id_employe INTO employe FROM emprunteurs e WHERE :new.id_emprunteur = e.id_emprunteur;
+    SELECT COUNT(*) INTO nbre FROM emprunts e WHERE :new.id_emprunteur = e.id_emprunteur and e.date_retour IS NULL;
     /*SELECT nombre_emprunt INTO nbre FROM emprunteurs e WHERE :new.id_emprunteur = e.id_emprunteur; */
-    IF employe IS NOT NULL AND employe > 3 /*nbre > 3*/ THEN
+    IF employe IS NOT NULL AND /*employe > 3*/ nbre > 3 THEN
       raise_application_error(-20007, 'Les employés de la société Oracle ne peuvent pas emprunter plus de 3 livres.', True);
     END IF;
-END;
-
-/* Rafraichit le nombre d'emprunts d'un emprunteur */
-CREATE OR REPLACE TRIGGER refresh_emprunt_add
-BEFORE INSERT ON emprunts
-FOR EACH ROW
-
-BEGIN
-    UPDATE emprunteurs SET nombre_emprunt = nombre_emprunt+1 WHERE :new.id_emprunteur = emprunteurs.id_emprunteur;
 END;
 
 /* Empêcher l'emprunt de plus d'1 exemplaire d'un même livre par un même emprunteur */
@@ -35,9 +27,8 @@ nbre_livres int;
 BEGIN
     SELECT COUNT (*) INTO nbre_livres
     FROM
-        (SELECT id_livre FROM emprunts WHERE id_emprunteur = :new.id_emprunteur
-        INTERSECT
-        SELECT id_livre FROM emprunts WHERE ID_Livre = :new.ID_Livre);
+        (SELECT isbn FROM emprunts 
+        WHERE id_emprunteur = :new.id_emprunteur and isbn = :new.isbn);
 
     IF (nbre_livres != 0) THEN
             raise_application_error(-20001,'Livre déjà emprunté.');
@@ -76,7 +67,7 @@ BEGIN
     
     LOOP
     IF c.date_retour <= sysdate  THEN
-        RAISE_APPLICATION_ERROR(-20003,'Emprunt impossible car le délai de retour est dépassé pour un emprunt en cours.');
+        raise_application_error(-20003,'Emprunt impossible car le délai de retour est dépassé pour un emprunt en cours.');
     END IF;
     END LOOP;
 
