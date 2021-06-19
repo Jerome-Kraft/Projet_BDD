@@ -9,9 +9,7 @@ nbre int;
 
 BEGIN
     SELECT id_employe INTO employe FROM emprunteurs e WHERE :new.id_emprunteur = e.id_emprunteur;
-    SELECT COUNT(*) INTO nbre FROM emprunts e WHERE :new.id_emprunteur = e.id_emprunteur and e.date_retour IS NULL;
-    /*SELECT nombre_emprunt INTO nbre FROM emprunteurs e WHERE :new.id_emprunteur = e.id_emprunteur; */
-    IF employe IS NOT NULL AND /*employe > 3*/ nbre > 3 THEN
+    IF employe IS NOT NULL AND employe > 3 THEN
       raise_application_error(-20007, 'Les employés de la société Oracle ne peuvent pas emprunter plus de 3 livres.', True);
     END IF;
 END;
